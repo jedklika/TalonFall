@@ -13,6 +13,10 @@ TagManager:
   - key
   - Timer
   - Health
+  - Elevator
+  - Top
+  - Bottom
+  - ElevatorFloor
   layers:
   - Default
   - TransparentFX

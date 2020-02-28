@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject ShotGun;
     public bool holstered;
     public bool ShotGunholstered;
+    public bool OnElevator = false;
     GameManager gm;
     // Start is called before the first frame update
     void Start()
@@ -35,27 +36,27 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && holstered)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && holstered)
         {
             Gun.SetActive(true);
             ShotGun.SetActive(false);
             holstered = false;
             ShotGunholstered = true;
         }
-        else if (Input.GetKeyDown(KeyCode.R)&& holstered == false)
+        else if (Input.GetKeyDown(KeyCode.Alpha1)&& holstered == false)
         {
             Gun.SetActive(false);
             holstered = true;
             ShotGunholstered = false;
         }
-        if (Input.GetKeyDown(KeyCode.H) && ShotGunholstered)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && ShotGunholstered)
         {
             ShotGun.SetActive(true);
             Gun.SetActive(false);
             ShotGunholstered = false;
             holstered = true;
         }
-        else if (Input.GetKeyDown(KeyCode.H) && ShotGunholstered == false)
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && ShotGunholstered == false)
         {
             ShotGun.SetActive(false);
             ShotGunholstered = true;
@@ -142,6 +143,10 @@ public class PlayerMovement : MonoBehaviour
                 this.gameObject.transform.parent = null;
             }
         }
+        if (col.gameObject.CompareTag("ElevatorFloor"))
+        {
+            isJumping = false;
+        }
         if (col.gameObject.CompareTag("Danger"))
         {
             SceneManager.LoadScene(0);
@@ -153,6 +158,14 @@ public class PlayerMovement : MonoBehaviour
         if (col.gameObject.CompareTag("Health"))
         {
             gm.playerHealth += 10;
+            Destroy(col.gameObject);
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Elevator"))
+        {
+            OnElevator = true;
         }
     }
 }
