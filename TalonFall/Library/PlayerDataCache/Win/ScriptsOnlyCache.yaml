@@ -2,10 +2,13 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - CamFollow
+    - Carrier
+    - Elevator
     - GameManager
     - Ladder
     - PlayerMovement
     - Projectile
+    - TimeToDie
     - Weapon
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
@@ -18,8 +21,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -45,22 +50,34 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 61
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 11216}
     - Class: 114
-      Script: {instanceID: 11870}
+      Script: {instanceID: 11230}
     - Class: 114
-      Script: {instanceID: 12050}
+      Script: {instanceID: 11874}
     - Class: 114
-      Script: {instanceID: 12920}
+      Script: {instanceID: 11950}
     - Class: 114
-      Script: {instanceID: 14130}
+      Script: {instanceID: 12056}
     - Class: 114
-      Script: {instanceID: 14774}
+      Script: {instanceID: 12506}
+    - Class: 114
+      Script: {instanceID: 12512}
+    - Class: 114
+      Script: {instanceID: 12604}
+    - Class: 114
+      Script: {instanceID: 12932}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -104,6 +121,12 @@ ScriptsOnlyBuild:
     className: Projectile
   - hash:
       serializedVersion: 2
+      Hash: 81a3c706239c38eb95d9ae2f5745baa7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Elevator
+  - hash:
+      serializedVersion: 2
       Hash: e7a73f5f78ba6445195ec23b74a1ce2d
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -144,6 +167,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: TouchInputModule
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Floor
   - hash:
       serializedVersion: 2
       Hash: 8e0313c6f5e2ce35991fec2d64f8eaab
@@ -266,10 +295,16 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: 2214c1923095f968179297c86381076f
+      Hash: d6db87ecc8406b0524197c29dfbaa04e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerMovement
+  - hash:
+      serializedVersion: 2
+      Hash: 660795c2721aa4349979941da771764f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameManager
   - hash:
       serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
@@ -374,16 +409,34 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 72e998be464eff173f4b880c0570970b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Carrier
+  - hash:
+      serializedVersion: 2
       Hash: c1933cc0a2f4ff6eb13333347497beb3
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: TimelineAsset
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TimeToDie
+  - hash:
+      serializedVersion: 2
       Hash: 32766c8a6be36e3d32683e781afab5ac
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BasicEnemy
+  - hash:
+      serializedVersion: 2
+      Hash: 7c4d61ba679beaa5d71821c8c9d31078
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CamFollow
   - hash:
       serializedVersion: 2
       Hash: 3b760e6526e13f7504f59e210145899a
@@ -522,19 +575,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 7c4d61ba679beaa5d71821c8c9d31078
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: CamFollow
-  - hash:
-      serializedVersion: 2
-      Hash: f037fde09a7f7bfd799dba31646fd5d4
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: GameManager
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/Jedkl/OneDrive/Desktop/TalonFallPrototype/TalonFall.exe
+  playerPath: C:/Users/Jedkl/OneDrive/Desktop/TalonFallAplha/TalonFall.exe

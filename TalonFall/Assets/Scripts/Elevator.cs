@@ -17,6 +17,7 @@ public class Elevator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        TopFloor = true;
         Player = FindObjectOfType<PlayerMovement>();
         Door.SetActive(false);
         Nextpos = startPos.position;
