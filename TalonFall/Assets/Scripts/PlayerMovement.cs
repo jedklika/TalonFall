@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float Speed;
     public float RunSpeed;
     public float jumpHeight;
+	public float shortJumpGravity;
     public bool isJumping = false;
     private float timeBtwAttack;
     public float startTimeBtwAttack;
@@ -22,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
     public bool ShotGunholstered;
     public bool OnElevator = false;
     GameManager gm;
+	
+	private Animator PlayerAnimator;
+	private int animationState;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
         holstered = true;
         ShotGunholstered = true;
         gm = FindObjectOfType<GameManager>();
+		PlayerAnimator = GetComponent<Animator>();
+		animationState = 0;
     }
 
     // Update is called once per frame
@@ -44,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
             holstered = false;
             ShotGunholstered = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha1)&& holstered == false)
+        else if (Input.GetKeyDown(KeyCode.Alpha1)&&	!holstered)
         {
             Gun.SetActive(false);
             holstered = true;
@@ -72,6 +79,9 @@ public class PlayerMovement : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.LeftShift) && gm.SprintTime > 0 || Input.GetKeyDown(KeyCode.RightShift) && gm.SprintTime > 0)
         {
             gm.sprint = true;
+			
+			if (!isJumping)
+				SetAnimation(2);
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift)|| gm.SprintTime <= 0)
@@ -103,15 +113,24 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector3(-Speed, rb.velocity.y, 0f);
             transform.localScale = new Vector3(-1f, 1f, 1f);
+			
+			if (!isJumping)
+				SetAnimation(1);
         }
         else if (Input.GetAxisRaw("Horizontal") > 0f)
         {
             rb.velocity = new Vector3(Speed, rb.velocity.y, 0f);
             transform.localScale = new Vector3(1f, 1f, 1f);
+			
+			if (!isJumping)
+				SetAnimation(1);
         }
         else
         {
             rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+			
+			if (!isJumping)
+				SetAnimation(0);
         }
 		
 		
@@ -120,12 +139,14 @@ public class PlayerMovement : MonoBehaviour
         {
             this.gameObject.transform.parent = null;
 			
-		/*
 			//Added this for short jumping									--David P
-			if (!Input.GetKey(KeyCode.Space) && rb.velocity.y > 2){
-				rb.gravityScale = 2.7f;
+			if (!Input.GetKey(KeyCode.Space) && rb.velocity.y > 2)
+			{
+				rb.gravityScale = shortJumpGravity;
 			}
-		*/
+			
+			//Jump animationState
+			SetAnimation(3);
         }
 		
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
@@ -139,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+		
     }
 	
 	//Checking collisions
@@ -167,17 +189,18 @@ public class PlayerMovement : MonoBehaviour
 		//Falling and jumping collisions
         if (col.gameObject.CompareTag("Falling") && isJumping)
         {
-			//rb.gravityScale = 1;
+			rb.gravityScale = 1;
             isJumping = false;
         }
 		
         if (col.gameObject.CompareTag("Ground") && isJumping)
         {
             isJumping = false;
-			//rb.gravityScale = 1;									//This line added to set gravity back to normal after shortening jumps		--David P
+			rb.gravityScale = 1;									//This line added to set gravity back to normal after shortening jumps		--David P
             Debug.Log("Check");
             this.gameObject.transform.parent = null;
-            if (isJumping == true)
+			
+            if (isJumping)
             {
                 this.gameObject.transform.parent = null;
             }
@@ -187,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
 		//Elevator
         if (col.gameObject.CompareTag("ElevatorFloor"))
         {
-			//rb.gravityScale = 1;
+			rb.gravityScale = 1;
             isJumping = false;
         }
 		
@@ -200,7 +223,6 @@ public class PlayerMovement : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
-		
 		
 		//Acquiring health kit
         if (col.gameObject.CompareTag("Health"))
@@ -219,4 +241,50 @@ public class PlayerMovement : MonoBehaviour
             OnElevator = true;
         }
     }
+	
+	//Managing animations
+	private void SetAnimation(int newAnimationState)
+	{
+		if (newAnimationState != animationState){
+			switch (newAnimationState){
+			case 3:				//JUMP
+				SetToJump();
+			break;
+			case 2:				//RUN
+				SetToRun();
+			break;
+			case 1:				//WALK
+				SetToWalk();
+			break;
+			case 0:				//IDLE
+			default:
+				SetToIdle();
+			break;
+			}
+		}
+	}
+	
+	void SetToIdle()
+	{
+		animationState = 0;
+		PlayerAnimator.Play("Idle");
+	}
+	
+	void SetToWalk()
+	{
+		animationState = 1;
+		PlayerAnimator.Play("walk");
+	}
+	
+	void SetToRun()
+	{
+		animationState = 2;
+		PlayerAnimator.Play("Run");
+	}
+	
+	void SetToJump()
+	{
+		animationState = 3;
+		PlayerAnimator.Play("Jump");
+	}
 }

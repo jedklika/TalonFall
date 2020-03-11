@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public float SprintTime = 30;
     public bool sprint;
     PlayerMovement player;
+	
     // Start is called before the first frame update
     void Start()
     {
