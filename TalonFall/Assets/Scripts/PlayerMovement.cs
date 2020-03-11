@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//Equipping or unequipping handgun
         if (Input.GetKeyDown(KeyCode.Alpha1) && holstered)
         {
             Gun.SetActive(true);
@@ -49,6 +50,9 @@ public class PlayerMovement : MonoBehaviour
             holstered = true;
             ShotGunholstered = false;
         }
+		
+		
+		//Equipping or unequipping shotgun
         if (Input.GetKeyDown(KeyCode.Alpha2) && ShotGunholstered)
         {
             ShotGun.SetActive(true);
@@ -62,7 +66,10 @@ public class PlayerMovement : MonoBehaviour
             ShotGunholstered = true;
             holstered = true;
         }
-            if (Input.GetKeyDown(KeyCode.LeftShift) && gm.SprintTime > 0 || Input.GetKeyDown(KeyCode.RightShift) && gm.SprintTime > 0)
+        
+		
+		//Sprinting
+		if (Input.GetKeyDown(KeyCode.LeftShift) && gm.SprintTime > 0 || Input.GetKeyDown(KeyCode.RightShift) && gm.SprintTime > 0)
         {
             gm.sprint = true;
         }
@@ -71,7 +78,10 @@ public class PlayerMovement : MonoBehaviour
         {
             gm.sprint = false;
         }
-            if (Input.GetKeyDown(KeyCode.F) && timeBtwAttack <= 0)
+		
+		
+		//Using weapon
+        if (Input.GetKeyDown(KeyCode.F) && timeBtwAttack <= 0)
         {
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
             for (int i = 0; i < enemiesToDamage.Length; i++)
@@ -86,6 +96,9 @@ public class PlayerMovement : MonoBehaviour
         {
             timeBtwAttack -= Time.deltaTime;
         }
+		
+		
+		//Movement
         if (Input.GetAxisRaw("Horizontal") < 0f)
         {
             rb.velocity = new Vector3(-Speed, rb.velocity.y, 0f);
@@ -100,42 +113,68 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && isJumping == false)
+		
+		
+		//Jumping
+		if (isJumping)
+        {
+            this.gameObject.transform.parent = null;
+			
+		/*
+			//Added this for short jumping									--David P
+			if (!Input.GetKey(KeyCode.Space) && rb.velocity.y > 2){
+				rb.gravityScale = 2.7f;
+			}
+		*/
+        }
+		
+        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
             rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
             isJumping = true;
         }
+		
+		//Testing
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(0);
         }
-        if (isJumping == true)
-        {
-            this.gameObject.transform.parent = null;
-        }
     }
+	
+	//Checking collisions
     void OnCollisionEnter2D(Collision2D col)
     {
+		//Acquiring keys
         if (col.gameObject.CompareTag("key")){
             gm.keys++;
             Destroy(col.gameObject);
         }
+		
+		
+		//Going through doors
         if(col.gameObject.CompareTag("Door") && gm.keys <= 0)
         {
             Debug.Log("locked");
         }
+		
         if (col.gameObject.CompareTag("Door") && gm.keys >= 1)
         {
             gm.keys--;
             Destroy(col.gameObject);
         }
+		
+		
+		//Falling and jumping collisions
         if (col.gameObject.CompareTag("Falling") && isJumping)
         {
+			//rb.gravityScale = 1;
             isJumping = false;
         }
+		
         if (col.gameObject.CompareTag("Ground") && isJumping)
         {
             isJumping = false;
+			//rb.gravityScale = 1;									//This line added to set gravity back to normal after shortening jumps		--David P
             Debug.Log("Check");
             this.gameObject.transform.parent = null;
             if (isJumping == true)
@@ -143,26 +182,38 @@ public class PlayerMovement : MonoBehaviour
                 this.gameObject.transform.parent = null;
             }
         }
+		
+		
+		//Elevator
         if (col.gameObject.CompareTag("ElevatorFloor"))
         {
+			//rb.gravityScale = 1;
             isJumping = false;
         }
+		
         if (col.gameObject.CompareTag("Danger"))
         {
             SceneManager.LoadScene(0);
         }
+		
         if (col.gameObject.CompareTag("End"))
         {
             SceneManager.LoadScene(0);
         }
+		
+		
+		//Acquiring health kit
         if (col.gameObject.CompareTag("Health"))
         {
             gm.playerHealth += 10;
             Destroy(col.gameObject);
         }
     }
+	
+	//Platform triggers
     private void OnTriggerStay2D(Collider2D collision)
     {
+		//Elevator use
         if (collision.gameObject.CompareTag("Elevator"))
         {
             OnElevator = true;
