@@ -7,6 +7,7 @@ public class Carrier : MonoBehaviour
     public List<Rigidbody2D> rigidbodies = new List<Rigidbody2D>();
     public Vector3 Lastposition;
     Transform _transform;
+	
     // Start is called before the first frame update
     void Start()
     {
