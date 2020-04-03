@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject ShotGun;
     public bool holstered;
     public bool ShotGunholstered;
+	public bool Flipped = false;
 	
     GameManager gm;
 	
@@ -75,8 +76,8 @@ public class PlayerMovement : MonoBehaviour
 					ShotGunholstered = false;
 				}
 			}
-			
-			
+
+
 			//Equipping or unequipping shotgun
 			if (Input.GetKeyDown(KeyCode.Alpha2))
 			{
@@ -86,15 +87,14 @@ public class PlayerMovement : MonoBehaviour
 					Gun.SetActive(false);
 					ShotGunholstered = false;
 					holstered = true;
-				} 
-				else 
+				}
+				else
 				{
 					ShotGun.SetActive(false);
 					ShotGunholstered = true;
 					holstered = true;
 				}
 			}
-			
 			
 			//Sprinting
 			gm.sprint = ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && gm.SprintTime > 0 && !isJumping);
@@ -125,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				rb.velocity = new Vector3(-Speed, rb.velocity.y, 0f);
 				transform.localScale = new Vector3(-1f, 1f, 1f);
+				Flipped = true;
 				
 				if (!isJumping){
 					if (!gm.sprint)
@@ -137,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				rb.velocity = new Vector3(Speed, rb.velocity.y, 0f);
 				transform.localScale = new Vector3(1f, 1f, 1f);
-				
+				Flipped = false;
 				if (!isJumping)
 					if (!gm.sprint)
 						SetAnimation(1);
