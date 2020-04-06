@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using AnimationEnums;
+using GameStateEnums;
+using StageEnums;
+using WeaponEnums;
+
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rb;
@@ -29,13 +34,20 @@ public class PlayerMovement : MonoBehaviour
     public GameObject ShotGun;
     public bool holstered;
     public bool ShotGunholstered;
+<<<<<<< Updated upstream
 	public bool Flipped = false;
+=======
+>>>>>>> Stashed changes
 	
     GameManager gm;
 	
 	//Animation
 	private Animator PlayerAnimator;
+<<<<<<< Updated upstream
 	private int animationState;
+=======
+	private PlayerAnimationState currentAnimation;
+>>>>>>> Stashed changes
 	
     // Start is called before the first frame update
     void Start()
@@ -51,13 +63,21 @@ public class PlayerMovement : MonoBehaviour
 		
 		rb.gravityScale = defaultGravity;
 		
+<<<<<<< Updated upstream
 		animationState = 0;
+=======
+		currentAnimation = PlayerAnimationState.ANIMATION_STANDING;
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame
     void Update()
     {
+<<<<<<< Updated upstream
 		if (gm.playerState == 0)
+=======
+		if (gm.playerState == GameState.STATE_PLAYING)
+>>>>>>> Stashed changes
 		{
 			//Equipping or unequipping handgun
 			if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -76,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
 					ShotGunholstered = false;
 				}
 			}
+<<<<<<< Updated upstream
 
 
 			//Equipping or unequipping shotgun
@@ -134,23 +155,95 @@ public class PlayerMovement : MonoBehaviour
 						SetAnimation(2);
 				}
 			}
+=======
+			
+			
+			//Equipping or unequipping shotgun
+			if (Input.GetKeyDown(KeyCode.Alpha2))
+			{
+				if (ShotGunholstered)
+				{
+					ShotGun.SetActive(true);
+					Gun.SetActive(false);
+					ShotGunholstered = false;
+					holstered = true;
+				} 
+				else 
+				{
+					ShotGun.SetActive(false);
+					ShotGunholstered = true;
+					holstered = true;
+				}
+			}
+			
+			
+			//Sprinting
+			gm.sprint = ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && gm.SprintTime > 0 && !isJumping);
+			
+			
+			//Using weapon
+			if (Input.GetKeyDown(KeyCode.F) && timeBtwAttack <= 0)
+			{
+				Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+				for (int i = 0; i < enemiesToDamage.Length; i++)
+				{
+					Debug.Log("Enemy damage" + enemiesToDamage[i]);
+					enemiesToDamage[i].GetComponent<BasicEnemy>().health -= damage;
+
+				}
+				timeBtwAttack = startTimeBtwAttack;
+			}
+			else
+			{
+				timeBtwAttack -= Time.deltaTime;
+			}
+			
+			
+			//Movement
+			axis = Input.GetAxisRaw("Horizontal");
+			
+			if (axis < 0f)
+			{
+				rb.velocity = new Vector3(-Speed, rb.velocity.y, 0f);
+				transform.localScale = new Vector3(-1f, 1f, 1f);
+				
+				if (!isJumping)
+					if (!gm.sprint)
+						SetAnimation(PlayerAnimationState.ANIMATION_WALKING);
+					else
+						SetAnimation(PlayerAnimationState.ANIMATION_RUNNING);
+			}
+>>>>>>> Stashed changes
 			else if (axis > 0f)
 			{
 				rb.velocity = new Vector3(Speed, rb.velocity.y, 0f);
 				transform.localScale = new Vector3(1f, 1f, 1f);
+<<<<<<< Updated upstream
 				Flipped = false;
 				if (!isJumping)
 					if (!gm.sprint)
 						SetAnimation(1);
 					else
 						SetAnimation(2);
+=======
+				
+				if (!isJumping)
+					if (!gm.sprint)
+						SetAnimation(PlayerAnimationState.ANIMATION_WALKING);
+					else
+						SetAnimation(PlayerAnimationState.ANIMATION_RUNNING);
+>>>>>>> Stashed changes
 			}
 			else
 			{
 				rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
 				
 				if (!isJumping)
+<<<<<<< Updated upstream
 					SetAnimation(0);
+=======
+					SetAnimation(PlayerAnimationState.ANIMATION_STANDING);
+>>>>>>> Stashed changes
 			}
 			
 			
@@ -166,7 +259,11 @@ public class PlayerMovement : MonoBehaviour
 				}
 				
 				//Jump animationState
+<<<<<<< Updated upstream
 				SetAnimation(3);
+=======
+				SetAnimation(PlayerAnimationState.ANIMATION_JUMPING);
+>>>>>>> Stashed changes
 			}
 			
 			if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
@@ -181,7 +278,11 @@ public class PlayerMovement : MonoBehaviour
 				SceneManager.LoadScene(0);
 			}
 		} 
+<<<<<<< Updated upstream
 		else if (gm.playerState == 10)
+=======
+		else if (gm.playerState == GameState.STATE_CUTSCENE_1)
+>>>>>>> Stashed changes
 		{
 			SetAnimation(0);
 		}
@@ -257,6 +358,7 @@ public class PlayerMovement : MonoBehaviour
     }
 	
 	//Managing animations
+<<<<<<< Updated upstream
 	private void SetAnimation(int newAnimationState)
 	{
 		if (newAnimationState != animationState){
@@ -271,6 +373,22 @@ public class PlayerMovement : MonoBehaviour
 				SetToWalk();
 			break;
 			case 0:				//IDLE
+=======
+	private void SetAnimation(PlayerAnimationState newAnimationState)
+	{
+		if (newAnimationState != currentAnimation){
+			switch (newAnimationState){
+			case PlayerAnimationState.ANIMATION_JUMPING:				//JUMP
+				SetToJump();
+			break;
+			case PlayerAnimationState.ANIMATION_RUNNING:				//RUN
+				SetToRun();
+			break;
+			case PlayerAnimationState.ANIMATION_WALKING:				//WALK
+				SetToWalk();
+			break;
+			case PlayerAnimationState.ANIMATION_STANDING:				//IDLE
+>>>>>>> Stashed changes
 			default:
 				SetToIdle();
 			break;
@@ -280,25 +398,41 @@ public class PlayerMovement : MonoBehaviour
 	
 	void SetToIdle()
 	{
+<<<<<<< Updated upstream
 		animationState = 0;
+=======
+		currentAnimation = PlayerAnimationState.ANIMATION_STANDING;
+>>>>>>> Stashed changes
 		PlayerAnimator.Play("Idle");
 	}
 	
 	void SetToWalk()
 	{
+<<<<<<< Updated upstream
 		animationState = 1;
+=======
+		currentAnimation = PlayerAnimationState.ANIMATION_WALKING;
+>>>>>>> Stashed changes
 		PlayerAnimator.Play("walk");
 	}
 	
 	void SetToRun()
 	{
+<<<<<<< Updated upstream
 		animationState = 2;
+=======
+		currentAnimation = PlayerAnimationState.ANIMATION_RUNNING;
+>>>>>>> Stashed changes
 		PlayerAnimator.Play("Run");
 	}
 	
 	void SetToJump()
 	{
+<<<<<<< Updated upstream
 		animationState = 3;
+=======
+		currentAnimation = PlayerAnimationState.ANIMATION_JUMPING;
+>>>>>>> Stashed changes
 		PlayerAnimator.Play("Jump");
 	}
 }

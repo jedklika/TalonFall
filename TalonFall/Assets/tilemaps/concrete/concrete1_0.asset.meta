@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: cb5c7a7cc0f7b8b4db211ae2f637ad7d
+=======
+<<<<<<< Updated upstream:TalonFall/Assets/New Material.mat.meta
+guid: e165fda978a5b214683dc910d0e5140e
+=======
+guid: cb5c7a7cc0f7b8b4db211ae2f637ad7d
+>>>>>>> Stashed changes:TalonFall/Assets/tilemaps/concrete/concrete1_0.asset.meta
+>>>>>>> Stashed changes
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0

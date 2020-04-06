@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using GameStateEnums;
+using StageEnums;
+
 public class GameManager : MonoBehaviour
 {
     public float keys;
@@ -13,6 +16,7 @@ public class GameManager : MonoBehaviour
 	
     PlayerMovement player;
 	
+<<<<<<< Updated upstream
 	//For player state (will make enumeration for this later) -- David P
 	public int playerState = 0;
 	/*For now:
@@ -24,6 +28,15 @@ public class GameManager : MonoBehaviour
 	//For indicating stage player is in
 	public int playerStage = 0;					//Need enumeration here too
 	// 0 = officenight indoor, 1 = officenight outdoor, 2 = diner
+=======
+	//For player state
+	public GameState playerState;
+	
+	//(I will make everyone eat shoes if I get the combo lock system in by Friday btw)
+	
+	//For indicating stage player is in
+	public Stages playerStage;
+>>>>>>> Stashed changes
 	
     // Start is called before the first frame update
     void Start()
