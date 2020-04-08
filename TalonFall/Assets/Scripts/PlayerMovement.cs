@@ -33,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
 	
     GameManager gm;
 	
+	//UI MANAGER
+	UI_changer uic;
+	
 	//Animation
 	private Animator PlayerAnimator;
 	private int animationState;
@@ -52,6 +55,9 @@ public class PlayerMovement : MonoBehaviour
 		rb.gravityScale = defaultGravity;
 		
 		animationState = 0;
+		
+		uic = GameObject.Find("ui_canvas").GetComponent<UI_changer>();
+		gm.useRevolverAmmo(0);
     }
 
     // Update is called once per frame
@@ -68,12 +74,14 @@ public class PlayerMovement : MonoBehaviour
 					ShotGun.SetActive(false);
 					holstered = false;
 					ShotGunholstered = true;
+					uic.setToHandgun();
+					gm.useRevolverAmmo(0);
 				}
 				else
 				{
 					Gun.SetActive(false);
 					holstered = true;
-					ShotGunholstered = false;
+					ShotGunholstered = true;
 				}
 			}
 
@@ -87,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
 					Gun.SetActive(false);
 					ShotGunholstered = false;
 					holstered = true;
+					uic.setToShotgun();
+					gm.useShotgunAmmo(0);		//Just to display shotgun ammo
 				}
 				else
 				{
@@ -173,6 +183,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
 				isJumping = true;
+				gm.setDamage(20);
 			}
 			
 			//Testing
@@ -245,7 +256,8 @@ public class PlayerMovement : MonoBehaviour
 		//Acquiring health kit
         if (col.gameObject.CompareTag("Health"))
         {
-            gm.playerHealth += 10;
+			//Managing damage and healing is in the game manager
+            gm.setDamage(-10);
             Destroy(col.gameObject);
         }
     }

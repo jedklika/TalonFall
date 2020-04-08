@@ -10,11 +10,16 @@ public class Weapon : MonoBehaviour
     private float timeBtwShots;
     public float startTimeBtwShots;
 	
-	//This is for melee weapons only							--David P
+	//Melee variables only
 	public bool isMelee;
 	private bool isBroken = false;
-	public int maxDurability;			//guns don't have to worry about the durability stat
+	public int maxDurability;
 	private int currentDurability = 0;
+	public int durabilityDecreaseRate;
+	
+	//Gun variables only
+	public bool isShotgun;
+	GameManager gm;
 	
     // Start is called before the first frame update
     void Start()
@@ -22,6 +27,8 @@ public class Weapon : MonoBehaviour
         //In case of loaded file, load that durability, else just set current durability to maxDurability
 		currentDurability = maxDurability;
 		//for future, else just do something like setBroken(loadedDurability);
+		
+		gm = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -34,8 +41,22 @@ public class Weapon : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Instantiate(projecticle, ShotPos.position, transform.rotation);
-                timeBtwShots = startTimeBtwShots;
+				//MELEE
+				if (isMelee){
+					
+				//SHOTGUN
+				} else if (isShotgun){
+					if (gm.remainingShotgunAmmo()){
+						gm.useShotgunAmmo(1);
+						shoot();
+					}
+				//REVOLVER
+				} else {
+					if (gm.remainingRevolverAmmo()){
+						gm.useRevolverAmmo(1);
+						shoot();
+					}
+				}
             }
         }
         else
@@ -43,6 +64,11 @@ public class Weapon : MonoBehaviour
             timeBtwShots -= Time.deltaTime;
         }
     }
+	
+	void shoot(){
+		Instantiate(projecticle, ShotPos.position, transform.rotation);
+		timeBtwShots = startTimeBtwShots;
+	}
 	
 	//For durability (melee only)				--David P
 	private void setBroken(bool newBroken)
@@ -55,8 +81,8 @@ public class Weapon : MonoBehaviour
 		return isBroken;
 	}
 	
-		//Used by both repair and break
-	void setDurability(int amount)
+		//Used by both repair and break, ammo and no ammo
+	public void setDurability(int amount)
 	{
 		currentDurability-= amount;
 		
@@ -64,7 +90,8 @@ public class Weapon : MonoBehaviour
 		if (currentDurability < 1){
 			currentDurability = 0;
 			setBroken(true);
-		} else 
+		} 
+		else 
 		{
 			if (isBroken)
 					setBroken(false);

@@ -1,34 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public float keys;
     public float timer;
     public bool TimeToDie;
+	
     public float playerHealth = 90;
+	public float playerMaxHealth = 90;
+	
     public float SprintTime = 30;
     public bool sprint;
 	
-    PlayerMovement player;
+	public int revolverMaxAmmo;
+	private int revolverAmmo;
+	
+	public int shotgunMaxAmmo;
+	private int shotgunAmmo;
 	
 	//For player state (will make enumeration for this later) -- David P
 	public int playerState = 0;
 	/*For now:
 		0 = player can control
 		1 = player teleporting/in cutscene
-		2 = combo lock						(I will make everyone eat shoes if I get this system in by Friday btw, but everything's dizzy rn so idk)
+		2 = combo lock
 	*/
 	
 	//For indicating stage player is in
 	public int playerStage = 0;					//Need enumeration here too
 	// 0 = officenight indoor, 1 = officenight outdoor, 2 = diner
 	
+	PlayerMovement player;
+	UI_changer ui_manager;
+	
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<PlayerMovement>();
+		ui_manager = GameObject.Find("ui_canvas").GetComponent<UI_changer>();
+		
+		revolverAmmo = revolverMaxAmmo;
+		shotgunAmmo = shotgunMaxAmmo;
     }
 
     // Update is called once per frame
@@ -60,5 +75,84 @@ public class GameManager : MonoBehaviour
 		{
             timer = 100;
         }
+		
+		
     }
+	
+	//Managing health
+	public void setDamage(float new_damage)
+	{
+		playerHealth-=new_damage;
+		
+		//Checking bounds
+		//Max
+		if (playerHealth > playerMaxHealth)
+		{
+			playerHealth = playerMaxHealth;
+		//Min									--The player dies if this reaches
+		} 
+		else if (playerHealth <= 0)
+		{
+			playerHealth = 0;
+			SceneManager.LoadScene(0);
+		}
+		
+		//Setting face
+		ui_manager.setFace(playerHealth);
+	}
+	
+	//Managing ammo
+	public bool remainingRevolverAmmo()
+	{
+		return revolverAmmo > 0;
+	}
+	
+	public bool atRevolverMaxAmmo()
+	{
+		return revolverAmmo == revolverMaxAmmo;
+	}
+	
+	public void useRevolverAmmo(int used_ammo)
+	{
+		revolverAmmo-=used_ammo;
+		
+		if (revolverAmmo < 0)
+		{
+			revolverAmmo = 0;
+		}
+		else if (revolverAmmo > revolverMaxAmmo)
+		{
+			revolverAmmo = revolverMaxAmmo;
+		}
+		
+		//Display ammo capacity
+		ui_manager.setGunAmmoDisplay(revolverAmmo.ToString()+"/"+revolverMaxAmmo.ToString());
+	}
+	
+	public bool remainingShotgunAmmo()
+	{
+		return shotgunAmmo > 0;
+	}
+	
+	public bool atMaxShotgunAmmo()
+	{
+		return shotgunAmmo == shotgunMaxAmmo;
+	}
+	
+	public void useShotgunAmmo(int used_ammo)
+	{
+		shotgunAmmo-=used_ammo;
+		
+		if (shotgunAmmo < 0)
+		{
+			shotgunAmmo = 0;
+		}
+		else if (shotgunAmmo > shotgunMaxAmmo)
+		{
+			shotgunAmmo = shotgunMaxAmmo;
+		}
+		
+		//Display ammo capacity
+		ui_manager.setGunAmmoDisplay(shotgunAmmo.ToString()+"/"+shotgunMaxAmmo.ToString());
+	}
 }
