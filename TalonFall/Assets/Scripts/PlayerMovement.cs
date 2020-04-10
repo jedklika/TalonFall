@@ -30,7 +30,9 @@ public class PlayerMovement : MonoBehaviour
     public bool holstered;
     public bool ShotGunholstered;
 	public bool Flipped = false;
-	
+
+	JukeBox JB;
+
     GameManager gm;
 	
 	//UI MANAGER
@@ -43,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		JB = FindObjectOfType<JukeBox>();
         rb = GetComponent<Rigidbody2D>();
         gm = FindObjectOfType<GameManager>();
 		PlayerAnimator = GetComponent<Animator>();
@@ -263,9 +266,12 @@ public class PlayerMovement : MonoBehaviour
     }
 	
 	//Platform triggers
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-		
+		if (collision.CompareTag("Boo"))
+		{
+			JB.isTriggered = true;
+		}
     }
 	
 	//Managing animations
