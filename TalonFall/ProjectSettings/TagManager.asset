@@ -18,6 +18,8 @@ TagManager:
   - Bottom
   - ElevatorFloor
   - Boo
+  - DarkZone
+  - LightZone
   layers:
   - Default
   - TransparentFX
