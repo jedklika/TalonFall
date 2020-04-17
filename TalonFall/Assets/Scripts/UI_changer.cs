@@ -43,14 +43,14 @@ public class UI_changer : MonoBehaviour
 	public void setToShotgun(){
 		gun_image.sprite = sprite_shotgun;
 		RectTransform rt = gun_image.GetComponent<RectTransform>();
-		rt.sizeDelta = new Vector2(123,35);
+		rt.sizeDelta = new Vector2(175,50);
 		
 	}
 	
 	public void setToHandgun(){
 		gun_image.sprite = sprite_handgun;
 		RectTransform rt = gun_image.GetComponent<RectTransform>();
-		rt.sizeDelta = new Vector2(70,70);
+		rt.sizeDelta = new Vector2(100,100);
 	}
 	
 	public void setGunAmmoDisplay(string new_ammo){

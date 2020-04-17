@@ -6,28 +6,18 @@ public class Projectile : MonoBehaviour
 {
     public float speed;
     public float lifeTime;
-    PlayerMovement Player;
+    Vector2 Direction;
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("DestroyProjectile", lifeTime);
-        Player = FindObjectOfType<PlayerMovement>();
+        Destroy(gameObject, lifeTime);
+        Direction = FindObjectOfType<PlayerMovement>().Flipped ? Vector2.left : Vector2.right; 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Player.Flipped == false)
-        {
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
-        }
-        if (Player.Flipped)
-        {
-            transform.Translate(Vector2.left * speed * Time.deltaTime);
-        }
+        transform.Translate(Direction * speed * Time.deltaTime);
     }
-    void DestroyProjectile()
-    {
-        Destroy(gameObject);
-    }
+
 }

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public float offset;
+	public float offset;
     public GameObject projecticle;
     public Transform ShotPos;
-    private float timeBtwShots;
+    public float timeBtwShots;
     public float startTimeBtwShots;
+	PlayerMovement P;
 	
 	//Melee variables only
 	public bool isMelee;
@@ -20,6 +21,7 @@ public class Weapon : MonoBehaviour
 	//Gun variables only
 	public bool isShotgun;
 	GameManager gm;
+
 	
     // Start is called before the first frame update
     void Start()
@@ -29,14 +31,15 @@ public class Weapon : MonoBehaviour
 		//for future, else just do something like setBroken(loadedDurability);
 		
 		gm = FindObjectOfType<GameManager>();
+		P = FindObjectOfType<PlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+		 Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
+        transform.rotation = Quaternion.Euler(0f, 0f, rotZ );
         if(timeBtwShots <= 0)
         {
             if (Input.GetMouseButtonDown(0))
@@ -48,13 +51,13 @@ public class Weapon : MonoBehaviour
 				} else if (isShotgun){
 					if (gm.remainingShotgunAmmo()){
 						gm.useShotgunAmmo(1);
-						shoot();
+						Shoot();
 					}
 				//REVOLVER
 				} else {
 					if (gm.remainingRevolverAmmo()){
 						gm.useRevolverAmmo(1);
-						shoot();
+						Shoot();
 					}
 				}
             }
@@ -65,7 +68,7 @@ public class Weapon : MonoBehaviour
         }
     }
 	
-	void shoot(){
+	void Shoot(){
 		Instantiate(projecticle, ShotPos.position, transform.rotation);
 		timeBtwShots = startTimeBtwShots;
 	}
