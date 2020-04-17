@@ -309,10 +309,8 @@ public class PlayerMovement : MonoBehaviour
 	
 	void SetToWalk()
 	{
-		if (animationState != 4){
-			animationState = 1;
-			PlayerAnimator.Play("walk");
-		}
+		animationState = 1;
+		PlayerAnimator.Play("walk");
 	}
 	
 	void SetToRun()
