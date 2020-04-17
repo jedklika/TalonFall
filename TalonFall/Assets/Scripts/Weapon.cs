@@ -9,6 +9,9 @@ public class Weapon : MonoBehaviour
     public Transform ShotPos;
     public float timeBtwShots;
     public float startTimeBtwShots;
+	public GameObject ShotgunFlash;
+	public GameObject HandGunFlash;
+	public float Flashtime;
 	PlayerMovement P;
 	
 	//Melee variables only
@@ -32,6 +35,8 @@ public class Weapon : MonoBehaviour
 		
 		gm = FindObjectOfType<GameManager>();
 		P = FindObjectOfType<PlayerMovement>();
+		ShotgunFlash.SetActive(false);
+		HandGunFlash.SetActive(false);
     }
 
     // Update is called once per frame
@@ -52,12 +57,14 @@ public class Weapon : MonoBehaviour
 					if (gm.remainingShotgunAmmo()){
 						gm.useShotgunAmmo(1);
 						Shoot();
+						StartCoroutine(Shotgun());
 					}
 				//REVOLVER
 				} else {
 					if (gm.remainingRevolverAmmo()){
 						gm.useRevolverAmmo(1);
 						Shoot();
+						StartCoroutine(HandGun());
 					}
 				}
             }
@@ -67,7 +74,18 @@ public class Weapon : MonoBehaviour
             timeBtwShots -= Time.deltaTime;
         }
     }
-	
+	IEnumerator Shotgun()
+	{
+		ShotgunFlash.SetActive(true);
+		yield return new WaitForSeconds(Flashtime);
+		ShotgunFlash.SetActive(false);
+	}
+	IEnumerator HandGun()
+	{
+		HandGunFlash.SetActive(true);
+		yield return new WaitForSeconds(Flashtime);
+		HandGunFlash.SetActive(false);
+	}
 	void Shoot(){
 		Instantiate(projecticle, ShotPos.position, transform.rotation);
 		timeBtwShots = startTimeBtwShots;
