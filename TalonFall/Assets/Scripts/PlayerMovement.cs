@@ -275,10 +275,13 @@ public class PlayerMovement : MonoBehaviour
     }
 	
 	//Managing animations
-	private void SetAnimation(int newAnimationState)
+	public void SetAnimation(int newAnimationState)
 	{
 		if (newAnimationState != animationState){
 			switch (newAnimationState){
+			case 4:				//CLIMB
+				SetToClimb();
+			break;
 			case 3:				//JUMP
 				SetToJump();
 			break;
@@ -298,14 +301,18 @@ public class PlayerMovement : MonoBehaviour
 	
 	void SetToIdle()
 	{
-		animationState = 0;
-		PlayerAnimator.Play("Idle");
+		if (animationState != 4){
+			animationState = 0;
+			PlayerAnimator.Play("Idle");
+		}
 	}
 	
 	void SetToWalk()
 	{
-		animationState = 1;
-		PlayerAnimator.Play("walk");
+		if (animationState != 4){
+			animationState = 1;
+			PlayerAnimator.Play("walk");
+		}
 	}
 	
 	void SetToRun()
@@ -318,5 +325,11 @@ public class PlayerMovement : MonoBehaviour
 	{
 		animationState = 3;
 		PlayerAnimator.Play("Jump");
+	}
+	
+	void SetToClimb()
+	{
+		animationState = 4;
+		PlayerAnimator.Play("climb");
 	}
 }
