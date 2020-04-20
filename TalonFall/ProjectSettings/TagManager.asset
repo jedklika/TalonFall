@@ -20,6 +20,7 @@ TagManager:
   - Boo
   - DarkZone
   - LightZone
+  - Enemy
   layers:
   - Default
   - TransparentFX

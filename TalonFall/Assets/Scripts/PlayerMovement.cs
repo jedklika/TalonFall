@@ -279,6 +279,12 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (newAnimationState != animationState){
 			switch (newAnimationState){
+			case 6:				//HURT
+				SetToHurt();
+			break;
+			case 5:				//FALL
+				SetToFall();
+			break;
 			case 4:				//CLIMB
 				SetToClimb();
 			break;
@@ -329,5 +335,17 @@ public class PlayerMovement : MonoBehaviour
 	{
 		animationState = 4;
 		PlayerAnimator.Play("climb");
+	}
+	
+	void SetToFall()
+	{
+		animationState = 5;
+		PlayerAnimator.Play("fall");
+	}
+	
+	void SetToHurt()
+	{
+		animationState = 6;
+		PlayerAnimator.Play("hurt");
 	}
 }
