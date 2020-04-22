@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3893085421146403786}
   - component: {fileID: 3893085421146403787}
   - component: {fileID: 3893085421146403784}
+  - component: {fileID: 6163098131069661889}
   - component: {fileID: 3624018974543166253}
-  - component: {fileID: 3029580562674215393}
   m_Layer: 0
   m_Name: big_red_slime_enemy
   m_TagString: Enemy
@@ -132,6 +132,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.56, y: 2.56}
   m_EdgeRadius: 0
+--- !u!114 &6163098131069661889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3893085421146403785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f5550e64ad476b45ad7a9a2c17f7a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos1: {fileID: 0}
+  pos2: {fileID: 0}
+  speed: 5
+  startPos: {fileID: 0}
+  health: 20
 --- !u!95 &3624018974543166253
 Animator:
   serializedVersion: 3
@@ -151,20 +168,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3029580562674215393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3893085421146403785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a80cb5b0cf01334d89f0cf83496d7b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  Distance: 0
-  moveRight: 1
-  groundDetection: {fileID: 0}
-  health: 0

@@ -21,6 +21,8 @@ TagManager:
   - DarkZone
   - LightZone
   - Enemy
+  - Right
+  - Left
   layers:
   - Default
   - TransparentFX
