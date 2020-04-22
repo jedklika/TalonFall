@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
 	//Animation
 	private Animator PlayerAnimator;
 	private int animationState;
+	private bool animationLock;
 	
     // Start is called before the first frame update
     void Start()
@@ -54,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
         ShotGun.SetActive(false);
         holstered = true;
         ShotGunholstered = true;
+		
+		animationLock = false;
 		
 		rb.gravityScale = defaultGravity;
 		
@@ -179,7 +182,14 @@ public class PlayerMovement : MonoBehaviour
 				}
 				
 				//Jump animationState
-				SetAnimation(3);
+				if (rb.velocity.y > -0.2f)
+				{
+					SetAnimation(3);
+				}
+				else
+				{
+					SetAnimation(5);
+				}
 			}
 			
 			if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
@@ -277,10 +287,10 @@ public class PlayerMovement : MonoBehaviour
 	//Managing animations
 	public void SetAnimation(int newAnimationState)
 	{
-		if (newAnimationState != animationState){
+		if (newAnimationState != animationState && !animationLock){
 			switch (newAnimationState){
 			case 6:				//HURT
-				SetToHurt();
+				StartCoroutine(SetToHurt());
 			break;
 			case 5:				//FALL
 				SetToFall();
@@ -343,9 +353,14 @@ public class PlayerMovement : MonoBehaviour
 		PlayerAnimator.Play("fall");
 	}
 	
-	void SetToHurt()
+	IEnumerator SetToHurt()
 	{
+		animationLock = true;
 		animationState = 6;
 		PlayerAnimator.Play("hurt");
+		
+		yield return new WaitForSeconds(0.2f);
+		
+		animationLock = false;
 	}
 }

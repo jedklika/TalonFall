@@ -34,12 +34,15 @@ public class GameManager : MonoBehaviour
 	// 0 = officenight indoor, 1 = officenight outdoor, 2 = diner
 	
 	PlayerMovement player;
+	PlayerSound player_sound;
+	
 	UI_changer ui_manager;
 	
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<PlayerMovement>();
+		player_sound = FindObjectOfType<PlayerSound>();
 		ui_manager = GameObject.Find("ui_canvas").GetComponent<UI_changer>();
 		
 		revolverAmmo = revolverMaxAmmo;
@@ -89,12 +92,26 @@ public class GameManager : MonoBehaviour
 		if (playerHealth > playerMaxHealth)
 		{
 			playerHealth = playerMaxHealth;
-		//Min									--The player dies if this reaches
+		//Min									--The player dies if this reaches 0
 		} 
 		else if (playerHealth <= 0)
 		{
 			playerHealth = 0;
 			SceneManager.LoadScene(0);
+		}
+		
+		//Flashing and sounds
+		//Damage
+		if (new_damage > 0)
+		{
+			StartCoroutine(ui_manager.displayDamageFlash());
+			player.SetAnimation(6);
+			player_sound.PlayHurt();
+		//Heal
+		} 
+		else if (new_damage < 0)
+		{
+			StartCoroutine(ui_manager.displayHealFlash());
 		}
 		
 		//Setting face
