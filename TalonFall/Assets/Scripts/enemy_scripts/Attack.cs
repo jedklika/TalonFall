@@ -26,6 +26,7 @@ public class Attack : MonoBehaviour
     void Update()
     {
         Rb.bodyType = RigidbodyType2D.Dynamic;
+        Rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 		
         if (Vector2.Distance(transform.position, player.position)> stopDistance)
         {
@@ -34,8 +35,7 @@ public class Attack : MonoBehaviour
             direction.Normalize();
             Movement = direction;
             moveCharacter(Movement);
-            Rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            Rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+            Rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
         }
 		
         if (Vector2.Distance(transform.position, player.position) < stopDistance)

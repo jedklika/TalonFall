@@ -5,12 +5,14 @@ using UnityEngine;
 public class AISwap : MonoBehaviour
 {
     public bool Right;
-    public GameObject Monster;
+    public SpriteRenderer Monster;
+    public bool flipped;
     // Start is called before the first frame update
     void Start()
     {
         GetComponentInParent<Patrol>().enabled = true;
         GetComponentInParent<Attack>().enabled = false;
+        Monster = GetComponentInParent<SpriteRenderer>();
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -20,14 +22,16 @@ public class AISwap : MonoBehaviour
             Debug.Log("Kill");
             GetComponentInParent<Attack>().enabled = true;
             GetComponentInParent<Patrol>().enabled = false;
-            Monster.transform.localScale = new Vector3(-1f, 1f, 1f);
+            Monster.flipX = true;
+            flipped = true;
         }
         if (collision.gameObject.CompareTag("Player") && Right == false)
         {
             Debug.Log("Kill");
             GetComponentInParent<Attack>().enabled = true;
             GetComponentInParent<Patrol>().enabled = false;
-            Monster.transform.localScale = new Vector3(1f, 1f, 1f);
+            Monster.flipX = false;
+            flipped = false;
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -37,23 +41,29 @@ public class AISwap : MonoBehaviour
             Debug.Log("Kill");
             GetComponentInParent<Attack>().enabled = true;
             GetComponentInParent<Patrol>().enabled = false;
-            Monster.transform.localScale = new Vector3(-1f, 1f, 1f);
         }
         if (collision.gameObject.CompareTag("Player") && Right == false)
         {
             Debug.Log("Kill");
             GetComponentInParent<Attack>().enabled = true;
             GetComponentInParent<Patrol>().enabled = false;
-            Monster.transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player")&& Right)
         {
             Debug.Log("Partol");
             GetComponentInParent<Patrol>().enabled = true;
             GetComponentInParent<Attack>().enabled = false;
+            Monster.flipX = false;
+        }
+        if (collision.gameObject.CompareTag("Player") && Right==false)
+        {
+            Debug.Log("Partol");
+            GetComponentInParent<Patrol>().enabled = true;
+            GetComponentInParent<Attack>().enabled = false;
+            Monster.flipX = true;
         }
     }
 }

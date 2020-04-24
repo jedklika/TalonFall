@@ -12,6 +12,7 @@ public class Patrol : MonoBehaviour
     public bool FoeFlipped;
     public int health;
     Rigidbody2D Rb;
+
 	
     // Start is called before the first frame update
     void Start()
@@ -19,12 +20,14 @@ public class Patrol : MonoBehaviour
         Nextpos = startPos.position;
         Rb = GetComponent<Rigidbody2D>();
         Rb.bodyType = RigidbodyType2D.Kinematic;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         Rb.bodyType = RigidbodyType2D.Kinematic;
+        Rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         if (transform.position == pos1.transform.position)
         {
             Nextpos = pos2.transform.position;
