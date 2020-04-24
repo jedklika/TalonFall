@@ -112,11 +112,16 @@ public class GameManager : MonoBehaviour
 			player.SetAnimation(6);
 			player_sound.PlayHurt();
 			setInvincible();
+			
+			//Check to queue heartbeat
+			player_sound.PlayWeak(playerHealth);
+			
 		//Heal
 		} 
 		else if (new_damage < 0)
 		{
 			StartCoroutine(ui_manager.displayHealFlash());
+			player_sound.StopWeak(playerHealth);
 		}
 		
 		//Setting face
