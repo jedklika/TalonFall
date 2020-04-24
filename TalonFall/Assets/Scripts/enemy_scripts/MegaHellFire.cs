@@ -7,12 +7,15 @@ public class MegaHellFire : MonoBehaviour
     public float speed;
     private Transform player;
     private Vector2 target;
-	
+    GameManager Gm;
+    public int damageDealt;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         target = new Vector2(player.position.x, player.position.y);
+        Gm = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -29,6 +32,7 @@ public class MegaHellFire : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             DestroyProjectie();
+            Gm.setDamage(damageDealt);
         }
     }
     void DestroyProjectie()

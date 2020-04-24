@@ -12,12 +12,12 @@ public class Attack : MonoBehaviour
     private Vector2 Movement;
     Rigidbody2D Rb;
     public GameObject Bullet;
-    WayPointAI WP;
+    Patrol P;
     // Start is called before the first frame update
     void Start()
     {
         TimeBtwShots = StartTimeBtwShots;
-        WP = FindObjectOfType<WayPointAI>();
+        P = FindObjectOfType<Patrol>();
         Rb = this.GetComponent<Rigidbody2D>();
         Rb.bodyType = RigidbodyType2D.Dynamic;
     }
@@ -53,12 +53,12 @@ public class Attack : MonoBehaviour
             TimeBtwShots -= Time.deltaTime;
         }
 		
-        if (WP.FoeFlipped)
+        if (P.FoeFlipped)
         {
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
 		
-        if (WP.FoeFlipped == false)
+        if (P.FoeFlipped == false)
         {
             transform.localScale = new Vector3(1f, 1f, 1f);
         }

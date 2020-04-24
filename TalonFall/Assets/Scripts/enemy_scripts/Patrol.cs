@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Patrol : MonoBehaviour
 {
+    public GameObject pos1, pos2;
     public float speed;
     public Transform startPos;
     Vector3 Nextpos;
+    public bool canFlip;
     public bool FoeFlipped;
     public int health;
     Rigidbody2D Rb;
@@ -27,20 +29,35 @@ public class Patrol : MonoBehaviour
         {
             Nextpos = pos2.transform.position;
         }
+        else if (transform.position == pos2.transform.position)
+        {
+            Nextpos = pos1.transform.position;
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, Nextpos, speed * Time.deltaTime);
     }
-	
-    void ontriggerEnter2D()
-	{
-        if (collision.gameObject.CompareTag("Right"))
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Right")&& canFlip)
         {
             transform.localScale = new Vector3(-1f, 1f, 1f);
             FoeFlipped = true;
         }
-		
-        if (collision.gameObject.CompareTag("Left"))
+
+        if (collision.gameObject.CompareTag("Left")&& canFlip)
         {
             transform.localScale = new Vector3(1f, 1f, 1f);
             FoeFlipped = false;
+        }
+    }
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        //Check if dead
+        if (health <= 0)
+        {
+            GameObject.Destroy(this.gameObject);
         }
     }
 }
