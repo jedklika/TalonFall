@@ -196,7 +196,6 @@ public class PlayerMovement : MonoBehaviour
 			{
 				rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
 				isJumping = true;
-				gm.setDamage(20);
 			}
 			
 			//Testing
@@ -214,14 +213,18 @@ public class PlayerMovement : MonoBehaviour
 	//Checking collisions
     void OnCollisionEnter2D(Collision2D col)
     {
-		//Acquiring keys
+		//IN THE PROCESS OF MODIFYING THIS KEY SYSTEM AT THIS MOMENT
+		
+		/*
+		//Acquiring keys (of a certain ID)
+		
         if (col.gameObject.CompareTag("key")){
-            gm.keys++;
+            gm.addKey;
             Destroy(col.gameObject);
         }
 		
-		//Going through doors
-        if(col.gameObject.CompareTag("Door") && gm.keys <= 0)
+		//Going through doors						
+        if(col.gameObject.CompareTag("Door"))
         {
             Debug.Log("locked");
         }
@@ -231,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
             gm.keys--;
             Destroy(col.gameObject);
         }
-		
+		*/
 		
 		//Falling and jumping collisions
         if (col.gameObject.CompareTag("Falling") && isJumping)

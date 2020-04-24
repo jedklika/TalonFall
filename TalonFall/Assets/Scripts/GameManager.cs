@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public float keys;
+    public List<KeyEnums> keys;
     public float timer;
     public bool TimeToDie;
 	
@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 	
 	public int shotgunMaxAmmo;
 	private int shotgunAmmo;
+	
+	public bool canBeDamaged;
 	
 	//For player state (will make enumeration for this later) -- David P
 	public int playerState = 0;
@@ -47,6 +49,8 @@ public class GameManager : MonoBehaviour
 		
 		revolverAmmo = revolverMaxAmmo;
 		shotgunAmmo = shotgunMaxAmmo;
+		
+		canBeDamaged = true;
     }
 
     // Update is called once per frame
@@ -101,12 +105,13 @@ public class GameManager : MonoBehaviour
 		}
 		
 		//Flashing and sounds
-		//Damage
-		if (new_damage > 0)
+		//Damage	(make sure not invincible)
+		if (new_damage > 0 && canBeDamaged)
 		{
 			StartCoroutine(ui_manager.displayDamageFlash());
 			player.SetAnimation(6);
 			player_sound.PlayHurt();
+			setInvincible();
 		//Heal
 		} 
 		else if (new_damage < 0)
@@ -116,6 +121,15 @@ public class GameManager : MonoBehaviour
 		
 		//Setting face
 		ui_manager.setFace(playerHealth);
+	}
+	
+	IEnumerator setInvincible()
+	{
+		canBeDamaged = false;
+		
+		yield return new WaitForSeconds(1.5f);
+		
+		canBeDamaged = true;
 	}
 	
 	//Managing ammo
