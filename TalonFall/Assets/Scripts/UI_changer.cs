@@ -90,10 +90,6 @@ public class UI_changer : MonoBehaviour
 		cursor.transform.position = mouse_position;
 		
 		//Debug.Log(mouse_position);
-		
-		//In case of tabbing out
-		if (Cursor.visible)
-			Cursor.visible = false;
     }
 	
 	//Managing health UI

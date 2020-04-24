@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3682157831385820104}
   - component: {fileID: 3894822540811082194}
   - component: {fileID: -8757587707848762192}
-  - component: {fileID: 8777574663560577642}
+  - component: {fileID: -6066624121897918762}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Revolver
@@ -95,21 +95,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a428fc80249ec894381eecf9774853f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 10
   lifeTime: 1.5
---- !u!58 &8777574663560577642
-CircleCollider2D:
+--- !u!65 &-6066624121897918762
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6008351186131564098}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
