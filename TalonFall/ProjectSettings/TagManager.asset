@@ -23,6 +23,10 @@ TagManager:
   - Enemy
   - Right
   - Left
+  - Shotgun
+  - Revolver
+  - shotgunBullet
+  - revolverBullet
   layers:
   - Default
   - TransparentFX

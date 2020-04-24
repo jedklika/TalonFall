@@ -156,6 +156,11 @@ public class GameManager : MonoBehaviour
 			revolverAmmo = revolverMaxAmmo;
 		}
 		
+		//Check if using revolver ammo
+		if (used_ammo > 0)
+			player_sound.PlayGun();
+		
+		
 		//Display ammo capacity
 		ui_manager.setGunAmmoDisplay(revolverAmmo.ToString()+"/"+revolverMaxAmmo.ToString());
 	}
@@ -182,6 +187,10 @@ public class GameManager : MonoBehaviour
 		{
 			shotgunAmmo = shotgunMaxAmmo;
 		}
+		
+		//Check if using shotgun ammo
+		if (used_ammo > 0)
+			player_sound.PlayGun();
 		
 		//Display ammo capacity
 		ui_manager.setGunAmmoDisplay(shotgunAmmo.ToString()+"/"+shotgunMaxAmmo.ToString());

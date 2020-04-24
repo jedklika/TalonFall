@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class BasicEnemy : MonoBehaviour
 {
-    public float speed;
-    public float Distance;
-    public bool moveRight = true;
-    public Transform groundDetection;
+    //public float speed;
+    //public float Distance;
+    //public bool moveRight = true;
+    //public Transform groundDetection;
     public int health;
 
     void Update()
     {
+		/*
         transform.Translate(Vector2.right * speed * Time.deltaTime);
         RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, Distance);
         if (groundInfo.collider == false)
@@ -27,6 +28,7 @@ public class BasicEnemy : MonoBehaviour
                 moveRight = true;
             }
         }
+		*/
     }
 	
     public void TakeDamage(int damage)
@@ -39,4 +41,19 @@ public class BasicEnemy : MonoBehaviour
             GameObject.Destroy(this.gameObject);
         }
     }
+	
+	void OnTriggerEnter2D(Collision2D col)
+	{
+		//I'd advise against tags, but for the sake of showing and general functionality, here you goto
+		if (col.gameObject.CompareTag("shotgunBullet"))
+		{
+			TakeDamage(30);
+			GameObject.Destroy(col.gameObject);
+		}
+		else if (col.gameObject.CompareTag("revolverBullet"))
+		{
+			TakeDamage(10);
+			GameObject.Destroy(col.gameObject);
+		}
+	}
 }

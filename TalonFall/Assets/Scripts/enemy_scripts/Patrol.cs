@@ -36,6 +36,8 @@ public class Patrol : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(transform.position, Nextpos, speed * Time.deltaTime);
     }
+	
+	
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Right")&& canFlip)
@@ -49,7 +51,21 @@ public class Patrol : MonoBehaviour
             transform.localScale = new Vector3(1f, 1f, 1f);
             FoeFlipped = false;
         }
+		
+		//For bullets
+		//I'd advise against tags, but for the sake of showing and general functionality, here you go
+		if (collision.gameObject.CompareTag("Shotgun"))
+		{
+			TakeDamage(30);
+			Destroy(collision.gameObject);
+		}
+		else if (collision.gameObject.CompareTag("Revolver"))
+		{
+			TakeDamage(10);
+			Destroy(collision.gameObject);
+		}
     }
+	
     public void TakeDamage(int damage)
     {
         health -= damage;
