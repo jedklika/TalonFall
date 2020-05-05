@@ -27,6 +27,8 @@ TagManager:
   - Revolver
   - shotgunBullet
   - revolverBullet
+  - revolverAmmo
+  - shotgunAmmo
   layers:
   - Default
   - TransparentFX

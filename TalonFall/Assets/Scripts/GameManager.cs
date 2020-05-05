@@ -82,8 +82,6 @@ public class GameManager : MonoBehaviour
 		{
             timer = 100;
         }
-		
-		
     }
 	
 	//Managing health
@@ -164,7 +162,10 @@ public class GameManager : MonoBehaviour
 		//Check if using revolver ammo
 		if (used_ammo > 0)
 			player_sound.PlayGun();
-		
+		else if (used_ammo < 0)
+			player_sound.PlayLoad();
+		else
+			player_sound.PlayUnholster();
 		
 		//Display ammo capacity
 		ui_manager.setGunAmmoDisplay(revolverAmmo.ToString()+"/"+revolverMaxAmmo.ToString());
@@ -196,6 +197,10 @@ public class GameManager : MonoBehaviour
 		//Check if using shotgun ammo
 		if (used_ammo > 0)
 			player_sound.PlayGun();
+		else if (used_ammo < 0)
+			player_sound.PlayLoad();
+		else
+			player_sound.PlayUnholster();
 		
 		//Display ammo capacity
 		ui_manager.setGunAmmoDisplay(shotgunAmmo.ToString()+"/"+shotgunMaxAmmo.ToString());

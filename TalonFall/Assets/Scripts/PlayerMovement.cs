@@ -135,52 +135,52 @@ public class PlayerMovement : MonoBehaviour
 			
 			
 			//Movement
-			axis = Input.GetAxisRaw("Horizontal");
 			
-			if (axis < 0f)
+			//CAN ONLY MOVE AND JUMP IF NO GUN IS OUT
+			if (ShotGunholstered && holstered)
 			{
-				rb.velocity = new Vector3(-Speed, rb.velocity.y, 0f);
-				transform.localScale = new Vector3(-1f, 1f, 1f);
-				Flipped = true;
-				
-				if (!isJumping){
-					if (!gm.sprint)
-						SetAnimation(1);
-					else
-						SetAnimation(2);
+				axis = Input.GetAxisRaw("Horizontal");
+			
+				if (axis < 0f)
+				{
+					rb.velocity = new Vector3(-Speed, rb.velocity.y, 0f);
+					transform.localScale = new Vector3(-1f, 1f, 1f);
+					Flipped = true;
 				}
-			}
-			else if (axis > 0f)
-			{
-				rb.velocity = new Vector3(Speed, rb.velocity.y, 0f);
-				transform.localScale = new Vector3(1f, 1f, 1f);
-				Flipped = false;
-				if (!isJumping)
-					if (!gm.sprint)
-						SetAnimation(1);
-					else
-						SetAnimation(2);
-			}
-			else
-			{
-				rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
-				
-				if (!isJumping)
-					SetAnimation(0);
-			}
+				else if (axis > 0f)
+				{
+					rb.velocity = new Vector3(Speed, rb.velocity.y, 0f);
+					transform.localScale = new Vector3(1f, 1f, 1f);
+					Flipped = false;
+				}
+				else
+				{
+					rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+					
+					if (!isJumping)
+						SetAnimation(0);
+				}
 			
+				if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+				{
+					rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
+					isJumping = true;
+				}
+			} else {
+				rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+			}
 			
 			//Jumping
 			if (isJumping)
 			{
 				this.gameObject.transform.parent = null;
-				
+					
 				//Added this for short jumping									--David P
 				if (!Input.GetKey(KeyCode.Space) && rb.velocity.y > 2)
 				{
 					rb.gravityScale = shortJumpGravity;
 				}
-				
+					
 				//Jump animationState
 				if (rb.velocity.y > -0.2f)
 				{
@@ -191,13 +191,18 @@ public class PlayerMovement : MonoBehaviour
 					SetAnimation(5);
 				}
 			}
-			
-			if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+			else
 			{
-				rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
-				isJumping = true;
+				if (!gm.sprint || !(ShotGunholstered && holstered))
+					if (Input.GetAxisRaw("Horizontal") == 0f || 
+					!(ShotGunholstered && holstered))
+						SetAnimation(0);
+					else
+						SetAnimation(1);
+				else
+					SetAnimation(2);
 			}
-			
+				
 			//Testing
 			if (Input.GetKeyDown(KeyCode.R))
 			{
@@ -276,6 +281,19 @@ public class PlayerMovement : MonoBehaviour
             gm.setDamage(-10);
             Destroy(col.gameObject);
         }
+		
+		if (col.gameObject.CompareTag("revolverAmmo"))
+		{
+			uic.setToHandgun();
+			gm.useRevolverAmmo(-6);
+			Destroy(col.gameObject);
+		}
+		else if (col.gameObject.CompareTag("shotgunAmmo"))
+		{
+			uic.setToShotgun();
+			gm.useShotgunAmmo(-3);
+			Destroy(col.gameObject);
+		}
     }
 	
 	//Platform triggers
