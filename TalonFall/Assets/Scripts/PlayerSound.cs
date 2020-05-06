@@ -6,17 +6,19 @@ using UnityEngine;
 
 public class PlayerSound : MonoBehaviour
 {
-	public AudioSource hurt_sound;
+	public AudioSource fx_sound;
 	//public AudioSource heal_sound;
 	public AudioSource weak_sound;
 	
-	public AudioSource unholster_sound;
-	public AudioSource gun_sound;
-	public AudioSource load_sound;
+	public AudioClip hurt_sound;
+	
+	public AudioClip unholster_sound;
+	public AudioClip gun_sound;
+	public AudioClip load_sound;
 	
 	//HEALTH SOUND FX
 	public void PlayHurt(){
-		hurt_sound.Play(0);
+		fx_sound.PlayOneShot(hurt_sound);
 	}
 	
 	public void PlayWeak(float playerHealth){
@@ -31,14 +33,14 @@ public class PlayerSound : MonoBehaviour
 	
 	//GUN SOUND FX
 	public void PlayUnholster(){
-		unholster_sound.Play(0);
+		fx_sound.PlayOneShot(unholster_sound);
 	}
 	
 	public void PlayGun(){
-		gun_sound.Play(0);
+		fx_sound.PlayOneShot(gun_sound);
 	}
 	
 	public void PlayLoad(){
-		load_sound.Play(0);
+		fx_sound.PlayOneShot(load_sound);
 	}
 }

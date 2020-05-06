@@ -274,26 +274,6 @@ public class PlayerMovement : MonoBehaviour
             SceneManager.LoadScene(0);
         }
 		
-		//Acquiring health kit
-        if (col.gameObject.CompareTag("Health"))
-        {
-			//Managing damage and healing is in the game manager
-            gm.setDamage(-10);
-            Destroy(col.gameObject);
-        }
-		
-		if (col.gameObject.CompareTag("revolverAmmo"))
-		{
-			uic.setToHandgun();
-			gm.useRevolverAmmo(-6);
-			Destroy(col.gameObject);
-		}
-		else if (col.gameObject.CompareTag("shotgunAmmo"))
-		{
-			uic.setToShotgun();
-			gm.useShotgunAmmo(-3);
-			Destroy(col.gameObject);
-		}
     }
 	
 	//Platform triggers
@@ -303,6 +283,36 @@ public class PlayerMovement : MonoBehaviour
 		{
 			JB.isTriggered = true;
 		}
+		
+		//Acquiring health kit
+        if (collision.CompareTag("Health"))
+        {
+			if (!gm.atMaxHealth()){
+				//Managing damage and healing is in the game manager
+				gm.setDamage(-10);
+				Destroy(collision.gameObject);
+			}
+        }
+		
+		//Acquiring ammo
+		if (collision.CompareTag("revolverAmmo"))
+		{
+			if (!gm.atRevolverMaxAmmo()){
+				uic.setToHandgun();
+				gm.useRevolverAmmo(-6);
+				Destroy(collision.gameObject);
+			}
+		}
+		else if (collision.CompareTag("shotgunAmmo"))
+		{
+			if (!gm.atMaxShotgunAmmo()){
+				uic.setToShotgun();
+				gm.useShotgunAmmo(-3);
+				Destroy(collision.gameObject);
+			}
+		}
+		
+		//Acquiring repair kit
     }
 	
 	//Managing animations

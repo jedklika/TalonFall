@@ -135,6 +135,10 @@ public class GameManager : MonoBehaviour
 		canBeDamaged = true;
 	}
 	
+	public bool atMaxHealth(){
+		return playerHealth == playerMaxHealth;
+	}
+	
 	//Managing ammo
 	public bool remainingRevolverAmmo()
 	{
