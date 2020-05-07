@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight;
 	public float defaultGravity;
 	public float shortJumpGravity;
-    public bool isJumping = false;
+    public bool isJumping = true;
 	
 	//Attack
     private float timeBtwAttack;
@@ -242,16 +242,17 @@ public class PlayerMovement : MonoBehaviour
 		*/
 		
 		//Falling and jumping collisions
+		/*
         if (col.gameObject.CompareTag("Falling") && isJumping)
         {
 			isJumping = false;
 			rb.gravityScale = defaultGravity;
         }
+		*/
 		
-        if (col.gameObject.CompareTag("Ground") && isJumping)
+        if (col.gameObject.CompareTag("Ground"))
         {
-            isJumping = false;
-			rb.gravityScale = defaultGravity;									//This line added to set gravity back to normal after shortening jumps		--David P
+            cancelJump();								//This line added to set gravity back to normal after shortening jumps		--David P
             //Debug.Log("Check");
             this.gameObject.transform.parent = null;
         }
@@ -260,20 +261,13 @@ public class PlayerMovement : MonoBehaviour
 		//Elevator
         if (col.gameObject.CompareTag("ElevatorFloor"))
         {
-			isJumping = false;
-			rb.gravityScale = defaultGravity;
+			cancelJump();
         }
 		
         if (col.gameObject.CompareTag("Danger"))
         {
             SceneManager.LoadScene(0);
         }
-		
-        if (col.gameObject.CompareTag("End"))
-        {
-            SceneManager.LoadScene(0);
-        }
-		
     }
 	
 	//Platform triggers
@@ -313,7 +307,28 @@ public class PlayerMovement : MonoBehaviour
 		}
 		
 		//Acquiring repair kit
+		
+		
+		//Demo end
+		if (collision.CompareTag("End"))
+        {
+			uic.displayTBC();
+            StartCoroutine(EndingGame());
+        }
     }
+	
+	public IEnumerator EndingGame(){
+		yield return new WaitForSeconds(5f);
+		
+		SceneManager.LoadScene("TitleScene");
+	}
+	
+	//Managing jump
+	private void cancelJump(){
+		isJumping = false;
+		rb.gravityScale = defaultGravity;
+		Debug.Log("Cancelling jump");
+	}
 	
 	//Managing animations
 	public void SetAnimation(int newAnimationState)

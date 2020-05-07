@@ -28,13 +28,20 @@ public class UI_changer : MonoBehaviour
 	private bool display_hurt_flash;
 	private bool display_heal_flash;
 	
-	private Color starting_hurt_color;
+	public Color starting_hurt_color;
 	private Color ending_hurt_color;
 	
-	private Color starting_heal_color;
+	public Color starting_heal_color;
 	private Color ending_heal_color;
 	
+	private Color starting_tbc_color;
+	public Color ending_tbc_color;
+	
 	private Color current_color;
+	
+	//To be continued
+	public Image tbc_screen;
+	private bool display_tbc = false;
 	
     // Start is called before the first frame update
     void Start()
@@ -49,6 +56,8 @@ public class UI_changer : MonoBehaviour
 		starting_heal_color = Color.green;
 		ending_heal_color = heal_flash.color;
 		//starting_heal_color.a = 0;
+		
+		starting_tbc_color = tbc_screen.color;
 		
         //MAKING THE CURSOR INVISIBLE
 		Cursor.visible = false;
@@ -72,9 +81,14 @@ public class UI_changer : MonoBehaviour
 			heal_flash.color = current_color;
 			
 			t += 1.9f * Time.deltaTime;
+		} 
+		else if (display_tbc)
+		{
+			current_color = Color.Lerp(starting_tbc_color, ending_tbc_color, Mathf.MoveTowards(0,1,t));
+			tbc_screen.color = current_color;
+			
+			t += 0.35f * Time.deltaTime;
 		}
-		
-		
 	}
 	
 	//For custom mouse
@@ -157,5 +171,11 @@ public class UI_changer : MonoBehaviour
 			
 			display_heal_flash = false;
 		}
+	}
+	
+	public void displayTBC(){
+		t = 0;
+		
+		display_tbc = true;
 	}
 }

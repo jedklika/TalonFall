@@ -628,9 +628,16 @@ MonoBehaviour:
   background: {fileID: 30042830}
   cursor: {fileID: 1979288152}
   toGameButton: {fileID: 68074566}
+  toGameButtonImage: {fileID: 68074567}
   tryMeButton: {fileID: 369807887}
-  transition_color_1: {r: 1, g: 1, b: 1, a: 0}
-  transition_color_2: {r: 0.16981131, g: 0.02322891, b: 0.02322891, a: 0}
+  tryMeButtonImage: {fileID: 369807888}
+  textOne: {fileID: 823926952}
+  textTwo: {fileID: 1771321152}
+  buttonTextOne: {fileID: 1226454984}
+  buttonTextTwo: {fileID: 82656436}
+  bg_transition_color_2: {r: 0.11764706, g: 0, b: 0, a: 1}
+  title_transition_color_1: {r: 1, g: 0, b: 0, a: 1}
+  title_transition_color_2: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &823926950
 GameObject:
   m_ObjectHideFlags: 0

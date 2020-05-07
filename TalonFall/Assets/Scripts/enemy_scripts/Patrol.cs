@@ -40,7 +40,7 @@ public class Patrol : MonoBehaviour
 	
     void OnTriggerEnter2D(Collider2D collision)
     {
-		Debug.Log("Hitting trigger of tag name " + collision.gameObject.tag);
+		//Debug.Log("Hitting trigger of tag name " + collision.gameObject.tag);
 		
         if (collision.gameObject.CompareTag("Right")&& canFlip)
         {
@@ -58,13 +58,13 @@ public class Patrol : MonoBehaviour
 		//I'd advise against tags, but for the sake of showing and general functionality, here you go
 		if (collision.gameObject.CompareTag("Shotgun"))
 		{
-			Debug.Log("Hit by shotgun");
+			//Debug.Log("Hit by shotgun");
 			TakeDamage(30);
 			Destroy(collision.gameObject);
 		}
 		else if (collision.gameObject.CompareTag("Revolver"))
 		{
-			Debug.Log("Hit by bullet");
+			//Debug.Log("Hit by bullet");
 			TakeDamage(10);
 			Destroy(collision.gameObject);
 		}
