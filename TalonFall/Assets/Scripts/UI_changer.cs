@@ -39,6 +39,9 @@ public class UI_changer : MonoBehaviour
 	
 	private Color current_color;
 	
+	public Image death_screen;
+	public Color death_color;
+	
 	//To be continued
 	public Image tbc_screen;
 	private bool display_tbc = false;
@@ -177,5 +180,9 @@ public class UI_changer : MonoBehaviour
 		t = 0;
 		
 		display_tbc = true;
+	}
+	
+	public void SetDeathOverlay(){
+		death_screen.color = death_color;
 	}
 }

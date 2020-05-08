@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
 	public float shortJumpGravity;
     public bool isJumping = true;
 	
+	//Ladder
+	public bool onLadder = false;
+	
 	//Attack
     private float timeBtwAttack;
     public float startTimeBtwAttack;
@@ -157,8 +160,8 @@ public class PlayerMovement : MonoBehaviour
 				{
 					rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
 					
-					if (!isJumping)
-						SetAnimation(0);
+					//if (!isJumping)
+					//	SetAnimation(0);
 				}
 			
 				if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
@@ -188,19 +191,32 @@ public class PlayerMovement : MonoBehaviour
 				}
 				else
 				{
-					SetAnimation(5);
+					SetAnimation(6);
 				}
 			}
-			else
+			else if (!onLadder)
 			{
-				if (!gm.sprint || !(ShotGunholstered && holstered))
-					if (Input.GetAxisRaw("Horizontal") == 0f || 
-					!(ShotGunholstered && holstered))
+				//IN CASE FALLING WITHOUT JUMPING
+				if (rb.velocity.y < -0.05f)
+					SetAnimation(6);
+				else 
+				{
+					if ((ShotGunholstered && holstered))
+					{
+						if (gm.sprint && Input.GetAxisRaw("Horizontal") != 0f)
+							SetAnimation(2);
+						else if (!gm.sprint)
+							if (Input.GetAxisRaw("Horizontal") == 0f || 
+							!(ShotGunholstered && holstered))
+								SetAnimation(0);
+							else
+								SetAnimation(1);
+					} 
+					else 
+					{
 						SetAnimation(0);
-					else
-						SetAnimation(1);
-				else
-					SetAnimation(2);
+					}
+				}
 			}
 				
 			//Testing
@@ -209,6 +225,7 @@ public class PlayerMovement : MonoBehaviour
 				SceneManager.LoadScene(0);
 			}
 		} 
+		
 		else if (gm.playerState == 10)
 		{
 			SetAnimation(0);
@@ -318,7 +335,7 @@ public class PlayerMovement : MonoBehaviour
     }
 	
 	public IEnumerator EndingGame(){
-		yield return new WaitForSeconds(5f);
+		yield return new WaitForSeconds(12.3f);
 		
 		SceneManager.LoadScene("TitleScene");
 	}
@@ -335,11 +352,14 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (newAnimationState != animationState && !animationLock){
 			switch (newAnimationState){
-			case 6:				//HURT
+			case 7:				//HURT
 				StartCoroutine(SetToHurt());
 			break;
-			case 5:				//FALL
+			case 6:				//FALL
 				SetToFall();
+			break;
+			case 5:				//CLIMB IDLE
+				SetToClimbIdle();
 			break;
 			case 4:				//CLIMB
 				SetToClimb();
@@ -363,10 +383,8 @@ public class PlayerMovement : MonoBehaviour
 	
 	void SetToIdle()
 	{
-		if (animationState != 4){
-			animationState = 0;
-			PlayerAnimator.Play("Idle");
-		}
+		animationState = 0;
+		PlayerAnimator.Play("Idle");
 	}
 	
 	void SetToWalk()
@@ -393,16 +411,22 @@ public class PlayerMovement : MonoBehaviour
 		PlayerAnimator.Play("climb");
 	}
 	
-	void SetToFall()
+	void SetToClimbIdle()
 	{
 		animationState = 5;
+		PlayerAnimator.Play("climb_idle");
+	}
+	
+	void SetToFall()
+	{
+		animationState = 6;
 		PlayerAnimator.Play("fall");
 	}
 	
 	IEnumerator SetToHurt()
 	{
 		animationLock = true;
-		animationState = 6;
+		animationState = 7;
 		PlayerAnimator.Play("hurt");
 		
 		yield return new WaitForSeconds(0.2f);

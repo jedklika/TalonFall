@@ -7,10 +7,11 @@ using UnityEngine;
 public class PlayerSound : MonoBehaviour
 {
 	public AudioSource fx_sound;
+	
 	//public AudioSource heal_sound;
 	public AudioSource weak_sound;
-	
 	public AudioClip hurt_sound;
+	public AudioClip death_sound;
 	
 	public AudioClip unholster_sound;
 	public AudioClip gun_sound;
@@ -29,6 +30,10 @@ public class PlayerSound : MonoBehaviour
 	public void StopWeak(float playerHealth){
 		if (playerHealth >= 45)
 			weak_sound.Stop();
+	}
+	
+	public void PlayDeath(){
+		fx_sound.PlayOneShot(death_sound);
 	}
 	
 	//GUN SOUND FX

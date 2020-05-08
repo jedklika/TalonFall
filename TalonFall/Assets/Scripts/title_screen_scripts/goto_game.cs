@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class goto_game : MonoBehaviour
 {
 	public titlescreen_sounds sounds;
+	public titlescreen_music music;
+	
 	public Image background;
 	public Image cursor;
 	
@@ -40,6 +43,8 @@ public class goto_game : MonoBehaviour
 		
 		//MAKING THE CURSOR INVISIBLE
 		Cursor.visible = false;
+		
+		music.PlayTitle();
     }
 	
 	void Update()
@@ -107,7 +112,9 @@ public class goto_game : MonoBehaviour
 		
 		to_game_title_transition = true;
 		
-		yield return new WaitForSeconds(0.7f);
+		music.StopMusic();
+		
+		yield return new WaitForSeconds(0.5f);
 		
 		//Fade in then go to the game
 		SceneManager.LoadScene("GameScene");
@@ -116,5 +123,6 @@ public class goto_game : MonoBehaviour
 	void PlaySound()
 	{
 		sounds.TitleButtonClick();
+		EventSystem.current.SetSelectedGameObject(null);
 	}
 }

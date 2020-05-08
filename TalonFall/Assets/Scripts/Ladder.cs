@@ -18,21 +18,34 @@ public class Ladder : MonoBehaviour
 		{
 			if (Input.GetKey(KeyCode.UpArrow))
 			{
-				other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);
+				player.onLadder = true;
 				player.isJumping = false;
+				other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);
 				player.SetAnimation(4);
 			}
 			else if (Input.GetKey(KeyCode.DownArrow))
 			{
-				other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -speed);
+				player.onLadder = true;
 				player.isJumping = false;
+				other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -speed);
 				player.SetAnimation(4);
 			}
 			else
 			{
-				other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0.2f);
-				player.isJumping = false;
+				if (player.onLadder)
+				{
+					other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0f);
+					player.SetAnimation(5);
+				}
 			}
 		}
     }
+	
+	private void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.CompareTag("Player"))
+		{
+			player.onLadder = false;
+		}
+	}
 }

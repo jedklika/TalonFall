@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 	private int shotgunAmmo;
 	
 	public bool canBeDamaged;
+	public bool isDead;
 	
 	//For player state (will make enumeration for this later) -- David P
 	public int playerState = 0;
@@ -99,7 +100,7 @@ public class GameManager : MonoBehaviour
 		else if (playerHealth <= 0)
 		{
 			playerHealth = 0;
-			SceneManager.LoadScene(0);
+			StartCoroutine(setDeath());
 		}
 		
 		//Flashing and sounds
@@ -107,7 +108,7 @@ public class GameManager : MonoBehaviour
 		if (new_damage > 0 && canBeDamaged)
 		{
 			StartCoroutine(ui_manager.displayDamageFlash());
-			player.SetAnimation(6);
+			player.SetAnimation(7);
 			player_sound.PlayHurt();
 			setInvincible();
 			
@@ -133,6 +134,18 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds(1.5f);
 		
 		canBeDamaged = true;
+	}
+	
+	IEnumerator setDeath()
+	{
+		if (!isDead)
+		{
+			isDead = true;
+			ui_manager.SetDeathOverlay();
+			player_sound.PlayDeath();
+			yield return new WaitForSeconds(4.9f);
+			SceneManager.LoadScene("TitleScene");
+		}
 	}
 	
 	public bool atMaxHealth(){
