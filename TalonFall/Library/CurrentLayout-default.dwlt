@@ -112,10 +112,10 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 731
-  m_MinSize: {x: 678, y: 492}
-  m_MaxSize: {x: 14001, y: 14042}
+  m_MinSize: {x: 679, y: 492}
+  m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 57
+  controlID: 106
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -314,19 +314,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Sprites/UI
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Sprites/UI
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\David\Documents\GitHub\TalonFall\TalonFall
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 194.99994}
-    m_SelectedIDs: cc3c0000
-    m_LastClickedID: 15564
+    scrollPos: {x: 0, y: 202}
+    m_SelectedIDs: 303d0000
+    m_LastClickedID: 15664
     m_ExpandedIDs: 00000000c03c0000c23c0000c43c0000c63c0000c83c0000ca3c0000cc3c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -529,9 +529,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 6690ffff0a92ffffe893ffffd0f7ffff10f8ffff1ef8ffff48f8ffff4cf8ffff6cfbffff5850000066500000a45000000251000020510000e85100008c520000e25200002e5300004c5300006a5300007e53000094530000d6530000e2530000145400007e5400008a5400002efa0000c8010100da010100e4010100
+      m_SelectedIDs: e2deffff
+      m_LastClickedID: -8478
+      m_ExpandedIDs: 6cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -591,9 +591,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 2.4703236, y: -0.6987246, z: -14715.517}
+    m_Target: {x: 1.3765906, y: -1.4554002, z: -14720.924}
     speed: 2
-    m_Value: {x: 2.4703236, y: -0.6987246, z: -14715.517}
+    m_Value: {x: 1.3765906, y: -1.4554002, z: -14720.924}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -643,9 +643,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 8.072065
+    m_Target: 8.609772
     speed: 2
-    m_Value: 8.072065
+    m_Value: 8.609772
   m_Ortho:
     m_Target: 1
     speed: 2
