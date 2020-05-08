@@ -915,8 +915,8 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1280, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -7095,8 +7095,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.85, y: -0.0000071526}
-  m_SizeDelta: {x: 1400, y: 1080}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 2600, y: 1400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &340337987
 MonoBehaviour:
@@ -10149,7 +10149,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -381, y: -291}
+  m_AnchoredPosition: {x: -677, y: -454}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &375290313
@@ -21882,8 +21882,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.855, y: -10.4}
-  m_SizeDelta: {x: 1400, y: 954}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 2800, y: 1400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &991816665
 PrefabInstance:
@@ -24714,7 +24714,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -525, y: -261}
+  m_AnchoredPosition: {x: -821, y: -438}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1171547712
@@ -24822,7 +24822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music: {fileID: 28235108}
-  office: {fileID: 8300000, guid: 9be52c8024642de419710161b61125be, type: 3}
+  office: {fileID: 8300000, guid: 105f940b3a7c2ce49be4bb6da961779c, type: 3}
   diner: {fileID: 8300000, guid: 3b6496792ad49a944bd1b87180dc7064, type: 3}
   sewer: {fileID: 8300000, guid: 939cf67724948e84fa85618308bdee2f, type: 3}
   tbc: {fileID: 8300000, guid: 2ef258852a53b994d8823b0e9e6d0cb2, type: 3}
@@ -28580,8 +28580,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.2875, y: -5.701}
-  m_SizeDelta: {x: 1414.3, y: 765.3}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 2800, y: 1400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1247245724
 MonoBehaviour:
@@ -36211,8 +36211,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.3, y: -5.7}
-  m_SizeDelta: {x: 1414.3, y: 765.3}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 2800, y: 1400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1324794708
 MonoBehaviour:
@@ -39753,7 +39753,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -12.372278, y: 2.54}
+  m_Offset: {x: -11.905861, y: 2.54}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -39764,7 +39764,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.721264, y: 5.3599997}
+  m_Size: {x: 4.6540976, y: 5.3599997}
   m_EdgeRadius: 0
 --- !u!1 &1662371983
 GameObject:
@@ -64923,7 +64923,7 @@ PrefabInstance:
     - target: {fileID: 2559415251758173644, guid: 311702c6cbb1a5248b126365e6073b6b,
         type: 3}
       propertyPath: health
-      value: 95
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 2559415251758173644, guid: 311702c6cbb1a5248b126365e6073b6b,
         type: 3}

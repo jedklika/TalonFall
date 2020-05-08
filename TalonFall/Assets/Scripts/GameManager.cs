@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 	
     public float SprintTime = 30;
     public bool sprint;
+	private bool exhausted = false;
 	
 	public int revolverMaxAmmo;
 	private int revolverAmmo;
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (sprint)
+        if (sprint && !player.onLadder)
         {
             SprintTime -= Time.deltaTime;
             player.Speed = player.RunSpeed;
@@ -84,6 +85,26 @@ public class GameManager : MonoBehaviour
             timer = 100;
         }
     }
+	
+	//Managing sprint
+	public bool CanSprint()
+	{
+		//Recover a bit if exhausted
+		if (exhausted)
+		{
+			if (SprintTime > 10.0f)
+				exhausted = false;
+			
+			return false;
+		}
+		else
+		{
+			if (SprintTime < 1.0f)
+				exhausted = true;
+			
+			return true;
+		}
+	}
 	
 	//Managing health
 	public void setDamage(float new_damage)

@@ -116,7 +116,10 @@ public class PlayerMovement : MonoBehaviour
 			}
 			
 			//Sprinting
-			gm.sprint = ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && gm.SprintTime > 0 && !isJumping);
+			gm.sprint = ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) &&
+						 Input.GetAxisRaw("Horizontal") != 0f &&
+						 gm.CanSprint() &&
+						 !isJumping && !onLadder);
 			
 			
 			//Using weapon
