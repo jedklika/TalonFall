@@ -17,6 +17,12 @@ public class PlayerSound : MonoBehaviour
 	public AudioClip gun_sound;
 	public AudioClip load_sound;
 	
+	public AudioClip key_sound;
+	public AudioClip observe_sound;
+	
+	public AudioClip lock_sound;
+	public AudioClip unlock_sound;
+	
 	//HEALTH SOUND FX
 	public void PlayHurt(){
 		fx_sound.PlayOneShot(hurt_sound);
@@ -47,5 +53,22 @@ public class PlayerSound : MonoBehaviour
 	
 	public void PlayLoad(){
 		fx_sound.PlayOneShot(load_sound);
+	}
+	
+	//INTERACT SOUND FX
+	public void PlayKeyCollect(){
+		fx_sound.PlayOneShot(key_sound);
+	}
+	
+	public void PlayObserve(){
+		fx_sound.PlayOneShot(observe_sound);
+	}
+	
+	public void PlayLock(){
+		fx_sound.PlayOneShot(lock_sound);
+	}
+	
+	public void PlayUnlock(){
+		fx_sound.PlayOneShot(unlock_sound);
 	}
 }

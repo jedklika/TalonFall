@@ -46,6 +46,11 @@ public class UI_changer : MonoBehaviour
 	public Image tbc_screen;
 	private bool display_tbc = false;
 	
+	//Observation
+	public Text interaction_text;
+	private float text_timer = 0.0f;
+	private bool text_active = true;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -91,6 +96,16 @@ public class UI_changer : MonoBehaviour
 			tbc_screen.color = current_color;
 			
 			t += 0.35f * Time.deltaTime;
+		}
+		
+		if (text_timer == 0.0f && text_active){
+			text_active = false;
+			interaction_text.text = "";
+		} else if (text_timer != 0.0f){
+			text_timer -= Time.deltaTime;
+			
+			if (text_timer < 0.0f)
+				text_timer = 0.0f;
 		}
 	}
 	
@@ -184,5 +199,15 @@ public class UI_changer : MonoBehaviour
 	
 	public void SetDeathOverlay(){
 		death_screen.color = death_color;
+	}
+	
+	//FOR OBSERVATION EVENTS
+	public void setTextActive(float timeActive){
+		text_timer = timeActive;
+		text_active = true;
+	}
+	
+	public void setTextLabel(string notification){
+		interaction_text.text = notification;
 	}
 }

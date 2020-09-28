@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public List<KeyEnums> keys;
+    public List<int> keys;
     public float timer;
     public bool TimeToDie;
 	
@@ -242,5 +242,22 @@ public class GameManager : MonoBehaviour
 		
 		//Display ammo capacity
 		ui_manager.setGunAmmoDisplay(shotgunAmmo.ToString()+"/"+shotgunMaxAmmo.ToString());
+	}
+	
+	//INTERACTION AND KEYS
+	public void notifyText(string notification){
+		ui_manager.setTextActive(3.0f);
+		ui_manager.setTextLabel(notification);
+		Debug.Log(notification);
+	}
+	
+	public void addKey(int keyValue){
+		keys.Add(keyValue);
+	}
+	
+	public bool checkKey(int keyValue){
+		bool keyResult = keys.Exists(element => element == keyValue);
+		Debug.Log(keyResult);
+		return keyResult;
 	}
 }
