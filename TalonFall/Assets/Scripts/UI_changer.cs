@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class UI_changer : MonoBehaviour
 {
 	public Image cursor;
+	public Sprite cursor_normal;
+	public Sprite cursor_observe;
+	public Sprite cursor_lock;
 	
 	public Image hurt_flash;
 	public Image heal_flash;
@@ -50,6 +53,8 @@ public class UI_changer : MonoBehaviour
 	public Text interaction_text;
 	private float text_timer = 0.0f;
 	private bool text_active = true;
+	
+	public Image interaction_image;
 	
     // Start is called before the first frame update
     void Start()
@@ -127,6 +132,24 @@ public class UI_changer : MonoBehaviour
 		if (Cursor.visible)
 			Cursor.visible = false;
     }
+	
+	//Managing cursor image
+	public void setCursorImage(int selection){
+		switch (selection){
+			//DEFAULT
+			case 0:
+				cursor.sprite = cursor_normal;
+			break;
+			//OBSERVE
+			case 1:
+				cursor.sprite = cursor_observe;
+			break;
+			//LOCK
+			case 2:
+				cursor.sprite = cursor_lock;
+			break;
+		}
+	}
 	
 	//Managing health UI
 	public void setFace(float player_health){
@@ -209,5 +232,17 @@ public class UI_changer : MonoBehaviour
 	
 	public void setTextLabel(string notification){
 		interaction_text.text = notification;
+	}
+	
+	public void setInteractionActive(){
+		interaction_image.color = Color.white;
+	}
+	
+	public void setInteractionInactive(){
+		interaction_image.color = Color.clear;
+	}
+	
+	public void setInteractionImageSprite(Sprite interaction_sprite){
+		interaction_image.sprite = interaction_sprite;
 	}
 }

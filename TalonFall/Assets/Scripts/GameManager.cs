@@ -27,10 +27,12 @@ public class GameManager : MonoBehaviour
 	
 	//For player state (will make enumeration for this later) -- David P
 	public int playerState = 0;
+	public int cursorState = 0;
 	/*For now:
 		0 = player can control
 		1 = player teleporting/in cutscene
-		2 = combo lock
+		2 = interaction
+		3 = combo lock
 	*/
 	
 	//For indicating stage player is in
@@ -84,6 +86,8 @@ public class GameManager : MonoBehaviour
 		{
             timer = 100;
         }
+		
+		checkLeaveInteraction();
     }
 	
 	//Managing sprint
@@ -251,6 +255,10 @@ public class GameManager : MonoBehaviour
 		Debug.Log(notification);
 	}
 	
+	public void clearText(){
+		ui_manager.setTextActive(0.0f);
+	}
+	
 	public void addKey(int keyValue){
 		keys.Add(keyValue);
 	}
@@ -259,5 +267,39 @@ public class GameManager : MonoBehaviour
 		bool keyResult = keys.Exists(element => element == keyValue);
 		Debug.Log(keyResult);
 		return keyResult;
+	}
+	
+	//FOR CLICKING FOR INTERACTIONS
+	public bool canInteract(){
+		//CHECK IF ALREADY INTERACTING
+		return playerState == 0;
+	}
+	
+	public void setCursorState(int cursor_state){
+		cursorState = cursor_state;
+		ui_manager.setCursorImage(cursor_state);
+	}
+	
+	public void interactionOpen(Sprite interaction_sprite){
+		playerState = 2;
+		ui_manager.setInteractionActive();
+		ui_manager.setInteractionImageSprite(interaction_sprite);
+	}
+	
+	public void checkLeaveInteraction(){
+		//FOR EXITING OBSERVATION COMBO LOCK
+		if (Input.GetKeyDown(KeyCode.X)){
+			if (playerState == 2){
+				playerState = 0;
+				
+				//close interaction image
+				ui_manager.setInteractionInactive();
+				clearText();
+			} else if (playerState == 3){
+				playerState = 0;
+				
+				//close lock
+			}
+		}
 	}
 }
