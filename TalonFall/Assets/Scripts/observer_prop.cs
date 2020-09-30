@@ -21,21 +21,28 @@ public class observer_prop : MonoBehaviour
 	
     void Update()
     {
-		RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+		Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		Vector2 mouse_point = new Vector2(mouse.x, mouse.y);
+		RaycastHit2D hit = Physics2D.Raycast(mouse_point, Vector2.zero);
 		
 		if (hit){
-			gm.setCursorState(1);
-		} else {
-			gm.setCursorState(0);
-		}
+			//CHECK IF OVER THAT PROP
+			//Debug.Log(hit.collider.name + " " + this.name);
 			
-        //Checking mouse click
-		if (Input.GetMouseButtonDown(0)){
-			if (hit){
-				clickOnProp();
+			//This is not an approach I like, but hey, overengineered problems require overengineered solution.
+			if (hit.collider.name == this.name){
+				gm.setCursorState(1);
+				
+				//Checking mouse click
+				if (Input.GetMouseButtonDown(0)){
+					clickOnProp();
+				}
+				
+				return;
 			}
 		}
 		
+		gm.setCursorState(0);
     }
 	
 	private void clickOnProp(){

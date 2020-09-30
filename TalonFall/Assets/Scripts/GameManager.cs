@@ -302,4 +302,13 @@ public class GameManager : MonoBehaviour
 			}
 		}
 	}
+	
+	public void requestComboLock(int key_1, int key_2, int key_3, int key_4){
+		if (canInteract()){
+			playerState = 3;
+			
+			//ACTIVE LOCK IN UI MANAGER
+			//SEND COMBO SOLUTION TO UI
+		}
+	}
 }
