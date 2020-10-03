@@ -6,6 +6,7 @@ public class prop_trigger : MonoBehaviour
 {
 	public bool has_image;
 	public Sprite observe_image;
+	public int sprite_x, sprite_y;
 	public string observe_description;
 	
 	GameManager gm;
@@ -33,7 +34,7 @@ public class prop_trigger : MonoBehaviour
 	
 	private void moveOverProp(){
 		if(has_image)
-			gm.interactionOpen(observe_image);
+			gm.interactionOpen(observe_image, sprite_x, sprite_y);
 		gm.notifyText(observe_description);
 	}
 }

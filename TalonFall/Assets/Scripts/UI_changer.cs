@@ -295,8 +295,9 @@ public class UI_changer : MonoBehaviour
 		interaction_image.color = Color.clear;
 	}
 	
-	public void setInteractionImageSprite(Sprite interaction_sprite){
+	public void setInteractionImageSprite(Sprite interaction_sprite, int sprite_x, int sprite_y){
 		interaction_image.sprite = interaction_sprite;
+		interaction_image.rectTransform.sizeDelta = new Vector2(sprite_x, sprite_y);
 	}
 	
 	

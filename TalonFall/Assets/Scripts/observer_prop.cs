@@ -7,6 +7,7 @@ public class observer_prop : MonoBehaviour
 {
 	public bool has_image;
 	public Sprite observe_image;
+	public int sprite_x, sprite_y;
 	public string observe_description;
 	
 	GameManager gm;
@@ -48,7 +49,7 @@ public class observer_prop : MonoBehaviour
 	private void clickOnProp(){
 		if (gm.canInteract()){
 			if(has_image)
-				gm.interactionOpen(observe_image);
+				gm.interactionOpen(observe_image, sprite_x, sprite_y);
 			gm.notifyText(observe_description);
 		}
 	}

@@ -281,10 +281,10 @@ public class GameManager : MonoBehaviour
 		ui_manager.setCursorImage(cursor_state);
 	}
 	
-	public void interactionOpen(Sprite interaction_sprite){
+	public void interactionOpen(Sprite interaction_sprite, int x_sprite, int y_sprite){
 		playerState = 2;
 		ui_manager.setInteractionActive();
-		ui_manager.setInteractionImageSprite(interaction_sprite);
+		ui_manager.setInteractionImageSprite(interaction_sprite, x_sprite, y_sprite);
 	}
 	
 	public void checkLeaveInteraction(){
