@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+	
 public class UI_changer : MonoBehaviour
 {
 	public Image cursor;
@@ -56,9 +56,43 @@ public class UI_changer : MonoBehaviour
 	
 	public Image interaction_image;
 	
+	
+	//FOR COMBINATION LOCK
+	//
+	//COMBINATION LOCK DATA
+	private int current_lock_1, current_lock_2, current_lock_3, current_lock_4;
+	private int lock_check_1, lock_check_2, lock_check_3, lock_check_4;
+	public GameObject lock_door_to_open;
+	
+	//COMBINATION LOCK UI
+	public GameObject lock_bundle;
+	
+	public Text lock_display_1;
+	public Button lock_1_increase_button;
+	public Button lock_1_decrease_button;
+	
+	public Text lock_display_2;
+	public Button lock_2_increase_button;
+	public Button lock_2_decrease_button;
+	
+	public Text lock_display_3;
+	public Button lock_3_increase_button;
+	public Button lock_3_decrease_button;
+	
+	public Text lock_display_4;
+	public Button lock_4_increase_button;
+	public Button lock_4_decrease_button;
+	
+	public Button unlock;
+	//
+	//
+
+
     // Start is called before the first frame update
     void Start()
     {
+		current_lock_1 = current_lock_2 = current_lock_3 = current_lock_4 = 0;
+		
 		display_hurt_flash = false;
 		display_heal_flash = false;
 		
@@ -74,6 +108,25 @@ public class UI_changer : MonoBehaviour
 		
         //MAKING THE CURSOR INVISIBLE
 		Cursor.visible = false;
+		
+		
+		
+		//SETTING UP LOCK UI
+		lock_1_increase_button.onClick.AddListener(increaseLockOne);
+		lock_1_decrease_button.onClick.AddListener(decreaseLockOne);
+		
+		lock_2_increase_button.onClick.AddListener(increaseLockTwo);
+		lock_2_decrease_button.onClick.AddListener(decreaseLockTwo);
+		
+		lock_3_increase_button.onClick.AddListener(increaseLockThree);
+		lock_3_decrease_button.onClick.AddListener(decreaseLockThree);
+		
+		lock_4_increase_button.onClick.AddListener(increaseLockFour);
+		lock_4_decrease_button.onClick.AddListener(decreaseLockFour);
+		
+		unlock.onClick.AddListener(lockMatch);
+		
+		lock_bundle.SetActive(false);
     }
 
     // Update is called once per frame
@@ -244,5 +297,126 @@ public class UI_changer : MonoBehaviour
 	
 	public void setInteractionImageSprite(Sprite interaction_sprite){
 		interaction_image.sprite = interaction_sprite;
+	}
+	
+	
+	//FOR THE LOCK
+	public void openComboLock(int key_1, int key_2, int key_3, int key_4, GameObject toOpen){
+		current_lock_1 = current_lock_2 = current_lock_3 = current_lock_4 = 0;
+		
+		lock_display_1.text = lock_display_2.text = lock_display_3.text = lock_display_4.text = current_lock_1.ToString();
+		
+		lock_check_1 = key_1;
+		lock_check_2 = key_2;
+		lock_check_3 = key_3;
+		lock_check_4 = key_4;
+		
+		lock_door_to_open = toOpen;
+		
+		
+		//MAKING THE LOCK UI VISIBLE AND ACTIVE
+		lock_bundle.SetActive(true);
+	}
+	
+	public void closeComboLock(){
+		//RESET THE LOCK COMBO
+		lock_check_1 = lock_check_2 = lock_check_3 = lock_check_4 = 0;
+		
+		//HIDING THE UI AND SETTING INACTIVE
+		lock_bundle.SetActive(false);
+	}
+	
+	public void increaseLockOne(){
+		current_lock_1+=1;
+		
+		if (current_lock_1 > 9)
+			current_lock_1 = 0;
+		
+		lock_display_1.text = current_lock_1.ToString();
+	}
+	
+	public void decreaseLockOne(){
+		current_lock_1-=1;
+		
+		if (current_lock_1 < 0)
+			current_lock_1 = 9;
+		
+		lock_display_1.text = current_lock_1.ToString();
+	}
+	
+	public void increaseLockTwo(){
+		current_lock_2+=1;
+		
+		if (current_lock_2 > 9)
+			current_lock_2 = 0;
+		
+		lock_display_2.text = current_lock_2.ToString();
+	}
+	
+	public void decreaseLockTwo(){
+		current_lock_2-=1;
+		
+		if (current_lock_2 < 0)
+			current_lock_2 = 9;
+		
+		lock_display_2.text = current_lock_2.ToString();
+	}
+	
+	
+	public void increaseLockThree(){
+		current_lock_3+=1;
+		
+		if (current_lock_3 > 9)
+			current_lock_3 = 0;
+		
+		lock_display_3.text = current_lock_3.ToString();
+	}
+	
+	public void decreaseLockThree(){
+		current_lock_3-=1;
+		
+		if (current_lock_3 < 0)
+			current_lock_3 = 9;
+		
+		lock_display_3.text = current_lock_3.ToString();
+	}
+	
+	
+	public void increaseLockFour(){
+		current_lock_4+=1;
+		
+		if (current_lock_4 > 9)
+			current_lock_4 = 0;
+		
+		lock_display_4.text = current_lock_4.ToString();
+	}
+	
+	public void decreaseLockFour(){
+		current_lock_4-=1;
+		
+		if (current_lock_4 < 0)
+			current_lock_4 = 9;
+		
+		lock_display_4.text = current_lock_4.ToString();
+	}
+	
+	
+	public void lockMatch(){
+		if (current_lock_1 == lock_check_1 &&
+			current_lock_2 == lock_check_2 &&
+			current_lock_3 == lock_check_3 &&
+			current_lock_4 == lock_check_4){
+			
+			setTextActive(2.0f);
+			setTextLabel("Combination lock opened!");
+			
+			lock_door_to_open.SetActive(false);
+			
+			//CLOSE THE LOCK UI AND OPEN THE DOOR
+			closeComboLock();
+		} else {
+			setTextActive(2.0f);
+			setTextLabel("Combination not correct!");
+		}
 	}
 }

@@ -10,11 +10,15 @@ public class combination_lock : MonoBehaviour
 	public int combo_required_4;
 	
 	GameManager gm;
+	UI_changer ui;
+	
+	public GameObject lockedDoor;
 	
     // Start is called before the first frame update
     void Start()
     {
         gm = FindObjectOfType<GameManager>();
+		ui = FindObjectOfType<UI_changer>();
     }
 
     // Update is called once per frame
@@ -50,6 +54,8 @@ public class combination_lock : MonoBehaviour
 	private void openingComboLock(){
 		//REQUEST OPENING COMBO STATE
 		//SEND THE GAME MANAGER THE GIVEN COMBO LOCK
-		gm.requestComboLock(combo_required_1, combo_required_2, combo_required_3, combo_required_4);
+		if (gm.requestComboLock()){
+			ui.openComboLock(combo_required_1, combo_required_2, combo_required_3, combo_required_4, lockedDoor);
+		}
 	}
 }

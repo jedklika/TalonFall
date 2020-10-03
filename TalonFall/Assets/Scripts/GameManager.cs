@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour
 	public bool canBeDamaged;
 	public bool isDead;
 	
-	//For player state (will make enumeration for this later) -- David P
+	
+	//For player state (will make enumeration for this later)
 	public int playerState = 0;
 	public int cursorState = 0;
 	/*For now:
@@ -299,16 +300,24 @@ public class GameManager : MonoBehaviour
 				playerState = 0;
 				
 				//close lock
+				ui_manager.closeComboLock();
 			}
 		}
+		
+		//IN CASE COMBO LOCK SOLVED
+		if (!ui_manager.lock_bundle.activeSelf && playerState == 3)
+			playerState = 0;
 	}
 	
-	public void requestComboLock(int key_1, int key_2, int key_3, int key_4){
+	public bool requestComboLock(){
 		if (canInteract()){
 			playerState = 3;
 			
 			//ACTIVE LOCK IN UI MANAGER
+			return true;
 			//SEND COMBO SOLUTION TO UI
-		}
+		} 
+		
+		return false;
 	}
 }
